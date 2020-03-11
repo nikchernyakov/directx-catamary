@@ -23,7 +23,7 @@
     <ProjectGuid>{CA272266-F916-4AE3-9F36-8F91D5994693}</ProjectGuid>
     <RootNamespace>directx-solar-system</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>directx-solar-system</ProjectName>
+    <ProjectName>directx-catamary</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
