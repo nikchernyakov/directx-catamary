@@ -132,7 +132,7 @@ void GameObject::init(const std::vector<Vertex>& vertices, const std::vector<uns
 			0,
 			DXGI_FORMAT_R32G32B32A32_FLOAT,
 			0,
-			D3D11_APPEND_ALIGNED_ELEMENT,
+			12,
 			D3D11_INPUT_PER_VERTEX_DATA,
 			0}
 	};
