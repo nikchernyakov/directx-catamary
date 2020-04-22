@@ -16,21 +16,18 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{634d1bf4-b1ad-4143-b97c-3a709b260133}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Libraries">
+    <Filter Include="Engine">
+      <UniqueIdentifier>{7462d77f-f2f8-411f-a7d5-ae2b79f89c9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Libraries">
       <UniqueIdentifier>{4f352ec0-f727-42d0-ba51-f558fb86b8b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Libraries\SimpleMath">
+      <UniqueIdentifier>{8463cd62-77b5-470c-bc78-0f84535edabe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="InputDevice.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="BoxObject.cpp">
@@ -39,42 +36,33 @@
     <ClCompile Include="SolarSystemGame.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="SimpleMath.cpp">
-      <Filter>Libraries</Filter>
-    </ClCompile>
     <ClCompile Include="PyramidObject .cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="Engine\Camera.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="Engine\Game.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Mouse.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="Engine\GameObject.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\InputDevice.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Mouse.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Transform.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Libraries\SimpleMath\SimpleMath.cpp">
+      <Filter>Engine\Libraries\SimpleMath</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="SimpleMath.h">
-      <Filter>Libraries</Filter>
-    </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="InputDevice.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="BoxObject.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="ConstantBuffer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="SolarSystemGame.h">
@@ -83,17 +71,38 @@
     <ClInclude Include="PyramidObject.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Engine\Camera.h">
+      <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Engine\ConstantBuffer.h">
+      <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="GameMath.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Engine\Game.h">
+      <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Mouse.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Engine\GameMath.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameObject.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\InputDevice.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Mouse.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Object.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Transform.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Vertex.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Libraries\SimpleMath\SimpleMath.h">
+      <Filter>Engine\Libraries\SimpleMath</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -108,8 +117,8 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SimpleMath.inl">
-      <Filter>Libraries</Filter>
+    <None Include="Engine\Libraries\SimpleMath\SimpleMath.inl">
+      <Filter>Engine\Libraries\SimpleMath</Filter>
     </None>
   </ItemGroup>
 </Project>

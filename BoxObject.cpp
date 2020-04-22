@@ -1,6 +1,6 @@
-#include "Game.h"
+#include "Engine/Game.h"
 #include "BoxObject.h"
-#include "ConstantBuffer.h"
+#include "Engine/ConstantBuffer.h"
 
 BoxObject::BoxObject(Game* game, Vector3 position, Vector4 color, float boxSize, float boxSpeed)
 	: GameObject(game, position, color), m_boxSize(boxSize), m_boxSpeed(boxSpeed)

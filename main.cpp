@@ -14,7 +14,7 @@
 #include <d3d11.h>
 #include <d3d11_1.h>
 #include <directxmath.h>
-#include "Game.h"
+#include "Engine/Game.h"
 #include "SolarSystemGame.h"
 
 #define ZCHECK(exp) if(FAILED(exp)) { printf("Check failed at file: %s at line %i", __FILE__, __LINE__); return 0; }

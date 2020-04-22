@@ -1,6 +1,6 @@
-#include "Game.h"
+#include "Engine/Game.h"
 #include "PyramidObject.h"
-#include "ConstantBuffer.h"
+#include "Engine/ConstantBuffer.h"
 
 using namespace DirectX;
 

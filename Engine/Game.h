@@ -1,7 +1,7 @@
 #pragma once
 #include <d3d11_1.h>
 #include "InputDevice.h"
-#include "SimpleMath.h"
+#include "Libraries/SimpleMath/SimpleMath.h"
 #include "Camera.h"
 #include "Mouse.h"
 

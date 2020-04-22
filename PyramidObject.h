@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GameObject.h"
+#include "Engine/GameObject.h"
 
 class PyramidObject : public GameObject
 {

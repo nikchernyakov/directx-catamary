@@ -141,16 +141,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BoxObject.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="InputDevice.cpp" />
+    <ClCompile Include="Engine\Camera.cpp" />
+    <ClCompile Include="Engine\Game.cpp" />
+    <ClCompile Include="Engine\GameObject.cpp" />
+    <ClCompile Include="Engine\InputDevice.cpp" />
+    <ClCompile Include="Engine\Libraries\SimpleMath\SimpleMath.cpp" />
+    <ClCompile Include="Engine\Mouse.cpp" />
+    <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="PyramidObject .cpp" />
-    <ClCompile Include="SimpleMath.cpp" />
     <ClCompile Include="SolarSystemGame.cpp" />
-    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MiniTri.fx">
@@ -168,21 +168,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoxObject.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="ConstantBuffer.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameMath.h" />
-    <ClInclude Include="InputDevice.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Engine\Camera.h" />
+    <ClInclude Include="Engine\ConstantBuffer.h" />
+    <ClInclude Include="Engine\Game.h" />
+    <ClInclude Include="Engine\GameMath.h" />
+    <ClInclude Include="Engine\GameObject.h" />
+    <ClInclude Include="Engine\InputDevice.h" />
+    <ClInclude Include="Engine\Libraries\SimpleMath\SimpleMath.h" />
+    <ClInclude Include="Engine\Mouse.h" />
+    <ClInclude Include="Engine\Object.h" />
+    <ClInclude Include="Engine\Transform.h" />
+    <ClInclude Include="Engine\Vertex.h" />
     <ClInclude Include="PyramidObject.h" />
-    <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="SolarSystemGame.h" />
-    <ClInclude Include="Transform.h" />
-    <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SimpleMath.inl" />
+    <None Include="Engine\Libraries\SimpleMath\SimpleMath.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

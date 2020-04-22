@@ -1,6 +1,6 @@
 #include <d3dcompiler.h>
 #include "Game.h"
-#include "SimpleMath.h"
+#include "Libraries/SimpleMath/SimpleMath.h"
 #include "GameObject.h"
 #include "ConstantBuffer.h"
 #include <iostream>
