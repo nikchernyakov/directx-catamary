@@ -3,6 +3,7 @@
 #include "SimpleMath.h"
 #include "GameObject.h"
 #include "ConstantBuffer.h"
+#include <iostream>
 
 using namespace DirectX::SimpleMath;
 
@@ -55,41 +56,113 @@ void GameObject::init(const std::vector<Vertex>& vertices, const std::vector<uns
 
 	m_game->context->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
 
-	Microsoft::WRL::ComPtr<ID3DBlob> pBlob;
-	D3DReadFileToBlob(L"PixelShader.cso", &pBlob);
-	m_game->device->CreatePixelShader(
-		pBlob->GetBufferPointer(),
-		pBlob->GetBufferSize(),
-		nullptr,
-		&pPixelShader
-	);
+	ID3DBlob* vertexBC;
+	ID3DBlob* errorVertexCode;
+	auto res = D3DCompileFromFile(L"MiniTri.fx",
+		nullptr /*macros*/,
+		nullptr /*include*/,
+		"VSMain",
+		"vs_5_0",
+		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,
+		0,
+		&vertexBC,
+		&errorVertexCode);
 
-	m_game->context->PSSetShader(pPixelShader.Get(), nullptr, 0u);
+	if (FAILED(res)) {
+		// If the shader failed to compile it should have written something to the error message.
+		if (errorVertexCode) {
+			char* compileErrors = (char*)(errorVertexCode->GetBufferPointer());
 
-	D3DReadFileToBlob(L"VertexShader.cso", &pBlob);
+			std::cout << compileErrors << std::endl;
+		}
+		// If there was  nothing in the error message then it simply could not find the shader file itself.
+		else
+		{
+			MessageBox(m_game->hWnd, L"MiniTri.fx", L"Missing Shader File", MB_OK);
+		}
+		return;
+	}
+
 	m_game->device->CreateVertexShader(
-		pBlob->GetBufferPointer(),
-		pBlob->GetBufferSize(),
+		vertexBC->GetBufferPointer(),
+		vertexBC->GetBufferSize(),
 		nullptr,
 		&pVertexShader
 	);
 
-	m_game->context->VSSetShader(pVertexShader.Get(), nullptr, 0u);
+	//D3D_SHADER_MACRO Shader_Macros[] = { "TEST", "1", "TCOLOR", "float4(0.0f, 1.0f, 0.0f, 1.0f)", nullptr, nullptr };
 
-	const D3D11_INPUT_ELEMENT_DESC ied[] =
-	{
-		{"Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{"Color", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0}
-	};
+	ID3DBlob* pixelBC;
+	ID3DBlob* errorPixelCode;
+	res = D3DCompileFromFile(L"MiniTri.fx", nullptr/*Shader_Macros /*macros*/, nullptr /*include*/, "PSMain", "ps_5_0", D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 0, &pixelBC, &errorPixelCode);
 
-	m_game->device->CreateInputLayout(
-		ied,
-		(UINT)std::size(ied),
-		pBlob->GetBufferPointer(),
-		pBlob->GetBufferSize(),
-		&pInputLayout
+	if (FAILED(res)) {
+		// If the shader failed to compile it should have written something to the error message.
+		if (errorPixelCode) {
+			char* compileErrors = (char*)(errorPixelCode->GetBufferPointer());
+
+			std::cout << compileErrors << std::endl;
+		}
+		// If there was  nothing in the error message then it simply could not find the shader file itself.
+		else
+		{
+			MessageBox(m_game->hWnd, L"MiniTri.fx", L"Missing Shader File", MB_OK);
+		}
+		return;
+	}
+
+	m_game->device->CreatePixelShader(
+		pixelBC->GetBufferPointer(),
+		pixelBC->GetBufferSize(),
+		nullptr,
+		&pPixelShader
 	);
 
+	D3D11_INPUT_ELEMENT_DESC inputElements[] = {
+		D3D11_INPUT_ELEMENT_DESC {
+			"POSITION",
+			0,
+			DXGI_FORMAT_R32G32B32A32_FLOAT,
+			0,
+			0,
+			D3D11_INPUT_PER_VERTEX_DATA,
+			0},
+		D3D11_INPUT_ELEMENT_DESC {
+			"COLOR",
+			0,
+			DXGI_FORMAT_R32G32B32A32_FLOAT,
+			0,
+			D3D11_APPEND_ALIGNED_ELEMENT,
+			D3D11_INPUT_PER_VERTEX_DATA,
+			0}
+	};
+
+	ID3D11InputLayout* layout;
+	hr = m_game->device->CreateInputLayout(
+		inputElements,
+		2,
+		vertexBC->GetBufferPointer(),
+		vertexBC->GetBufferSize(),
+		&pInputLayout);
+
+
+	/*ID3D11InputLayout* layout2;
+
+	D3D11_INPUT_ELEMENT_DESC inputElements2[] = {
+		D3D11_INPUT_ELEMENT_DESC {"POSITION",
+			0,
+			DXGI_FORMAT_R32G32B32A32_FLOAT,
+			0, 0,
+			D3D11_INPUT_PER_VERTEX_DATA, 0},
+		D3D11_INPUT_ELEMENT_DESC {"COLOR",
+			0,
+			DXGI_FORMAT_R32G32B32A32_FLOAT,
+			1, 0,
+			D3D11_INPUT_PER_VERTEX_DATA, 0}
+	};
+	hr = m_game->device->CreateInputLayout(inputElements2, 2, vertexBC->GetBufferPointer(), vertexBC->GetBufferSize(), &layout2);
+	*/
+	
 	CD3D11_BUFFER_DESC cbd;
 	cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	cbd.Usage = D3D11_USAGE_DEFAULT;

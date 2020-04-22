@@ -1,12 +1,14 @@
-cbuffer cbGlobal : register(b0)
+cbuffer CBuf : register(b0)
 {
-	matrix MOVE;
-}
+	matrix World;
+	matrix View;
+	matrix Projection;
+};
 
 struct VS_DATA
 {
 	float4 pos : SV_POSITION;
-	float4 col : COLOR;
+	float4 color : COLOR;
 };
 
 struct PS_IN
@@ -15,7 +17,7 @@ struct PS_IN
 	float4 col : COLOR;
 };
 
-VS_DATA VSMain(VS_DATA input )
+/*VS_DATA VSMain(VS_DATA input)
 {
 	VS_DATA output = (VS_DATA)0;
 	
@@ -24,9 +26,19 @@ VS_DATA VSMain(VS_DATA input )
 	output.col = input.col;
 	
 	return output;
+}*/
+
+VS_DATA VSMain(float4 pos : POSITION, float4 color : COLOR)
+{
+	VS_DATA vso;
+	vso.pos = mul(pos, World);
+	vso.pos = mul(vso.pos, View);
+	vso.pos = mul(vso.pos, Projection);
+	vso.color = color;
+	return vso;
 }
 
-float4 PSMain( PS_IN input ) : SV_Target
+/*float4 PSMain( PS_IN input ) : SV_Target
 {
 	float4 col = input.col;
 #ifdef TEST
@@ -34,4 +46,9 @@ float4 PSMain( PS_IN input ) : SV_Target
 #endif
 
 	return col;
+}*/
+
+float4 PSMain(VS_DATA input) : SV_Target
+{
+	return input.color;
 }
