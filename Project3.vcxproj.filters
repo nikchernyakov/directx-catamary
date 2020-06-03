@@ -60,6 +60,12 @@
     <ClCompile Include="Engine\Libraries\SimpleMath\SimpleMath.cpp">
       <Filter>Engine\Libraries\SimpleMath</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\MeshObject.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\MeshRenderer.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoxObject.h">
@@ -104,6 +110,12 @@
     <ClInclude Include="Engine\Libraries\SimpleMath\SimpleMath.h">
       <Filter>Engine\Libraries\SimpleMath</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\MeshObject.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\MeshRenderer.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MiniTri.fx">
@@ -120,5 +132,6 @@
     <None Include="Engine\Libraries\SimpleMath\SimpleMath.inl">
       <Filter>Engine\Libraries\SimpleMath</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

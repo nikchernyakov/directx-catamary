@@ -4,6 +4,7 @@
 #include "Libraries/SimpleMath/SimpleMath.h"
 #include "Camera.h"
 #include "Mouse.h"
+#include "MeshRenderer.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -37,6 +38,7 @@ public:
 	void doFrame();
 
 	Camera* camera;
+	MeshRenderer* meshRenderer;
 	
 protected:
 	virtual void update();
