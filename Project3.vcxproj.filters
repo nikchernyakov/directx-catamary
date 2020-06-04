@@ -33,9 +33,6 @@
     <ClCompile Include="BoxObject.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="SolarSystemGame.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="PyramidObject .cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -66,12 +63,12 @@
     <ClCompile Include="Engine\MeshRenderer.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="KatamariGame.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoxObject.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="SolarSystemGame.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="PyramidObject.h">
@@ -115,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="Engine\MeshRenderer.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="KatamariGame.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

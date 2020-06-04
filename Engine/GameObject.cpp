@@ -63,7 +63,7 @@ void GameObject::init(const std::vector<Vertex>& vertices, const std::vector<uns
 		nullptr /*include*/,
 		"VSMain",
 		"vs_5_0",
-		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,
+		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION | D3DCOMPILE_PACK_MATRIX_ROW_MAJOR,
 		0,
 		&vertexBC,
 		&errorVertexCode);
@@ -94,7 +94,15 @@ void GameObject::init(const std::vector<Vertex>& vertices, const std::vector<uns
 
 	ID3DBlob* pixelBC;
 	ID3DBlob* errorPixelCode;
-	res = D3DCompileFromFile(L"MiniTri.fx", nullptr/*Shader_Macros /*macros*/, nullptr /*include*/, "PSMain", "ps_5_0", D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 0, &pixelBC, &errorPixelCode);
+	res = D3DCompileFromFile(L"MiniTri.fx",
+		nullptr/*Shader_Macros /*macros*/,
+		nullptr /*include*/,
+		"PSMain",
+		"ps_5_0",
+		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION | D3DCOMPILE_PACK_MATRIX_ROW_MAJOR,
+		0,
+		&pixelBC,
+		&errorPixelCode);
 
 	if (FAILED(res)) {
 		// If the shader failed to compile it should have written something to the error message.
@@ -144,24 +152,6 @@ void GameObject::init(const std::vector<Vertex>& vertices, const std::vector<uns
 		vertexBC->GetBufferPointer(),
 		vertexBC->GetBufferSize(),
 		&pInputLayout);
-
-
-	/*ID3D11InputLayout* layout2;
-
-	D3D11_INPUT_ELEMENT_DESC inputElements2[] = {
-		D3D11_INPUT_ELEMENT_DESC {"POSITION",
-			0,
-			DXGI_FORMAT_R32G32B32A32_FLOAT,
-			0, 0,
-			D3D11_INPUT_PER_VERTEX_DATA, 0},
-		D3D11_INPUT_ELEMENT_DESC {"COLOR",
-			0,
-			DXGI_FORMAT_R32G32B32A32_FLOAT,
-			1, 0,
-			D3D11_INPUT_PER_VERTEX_DATA, 0}
-	};
-	hr = m_game->device->CreateInputLayout(inputElements2, 2, vertexBC->GetBufferPointer(), vertexBC->GetBufferSize(), &layout2);
-	*/
 	
 	CD3D11_BUFFER_DESC cbd;
 	cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;

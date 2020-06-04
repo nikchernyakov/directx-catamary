@@ -19,9 +19,10 @@ class MeshRenderer
 public:
 	MeshRenderer(Game* game);
 	
-	bool AddModel(const std::string& filePath);
-	void ProcessNode(aiNode* node, const aiScene* scene);
-	MeshObject* ProcessMesh(aiMesh* mesh, const aiScene* scene);
+	bool addModel(const std::string& filePath);
+	void processNode(aiNode* node, const aiScene* scene);
+	MeshObject* processMesh(aiMesh* mesh, const aiScene* scene);
+	void draw();
 
 private:
 	Game* m_game;

@@ -6,7 +6,7 @@ MeshRenderer::MeshRenderer(Game* game) : m_game(game)
 {
 }
 
-bool MeshRenderer::AddModel(const std::string& filePath)
+bool MeshRenderer::addModel(const std::string& filePath)
 {
     Importer importer;
 
@@ -18,31 +18,30 @@ bool MeshRenderer::AddModel(const std::string& filePath)
         return false;
 
     
-    ProcessNode(pScene->mRootNode, pScene);
+    processNode(pScene->mRootNode, pScene);
     return true;
 }
 
-void MeshRenderer::ProcessNode(aiNode* node, const aiScene* scene)
+void MeshRenderer::processNode(aiNode* node, const aiScene* scene)
 {
     for (UINT i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        meshes.push_back(ProcessMesh(mesh, scene));
+        meshes.push_back(processMesh(mesh, scene));
     }
 
     for (UINT i = 0; i < node->mNumChildren; i++)
     {
-        ProcessNode(node->mChildren[i], scene);
+        processNode(node->mChildren[i], scene);
     }
 }
 
-MeshObject* MeshRenderer::ProcessMesh(aiMesh* mesh, const aiScene* scene)
+MeshObject* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene)
 {
-    // Data to fill
     std::vector<Vertex> vertices;
     std::vector<DWORD> indices;
 
-    //Get vertices
+    // Get vertices
     for (UINT i = 0; i < mesh->mNumVertices; i++)
     {
         Vertex vertex{
@@ -50,10 +49,7 @@ MeshObject* MeshRenderer::ProcessMesh(aiMesh* mesh, const aiScene* scene)
         	Vector4{0, 1, 0, 1}
         };
 
-        /*vertex.position.x = mesh->mVertices[i].x;
-        vertex.position.y = mesh->mVertices[i].y;
-        vertex.position.z = mesh->mVertices[i].z;
-
+        /*
         vertex.normal.x = mesh->mNormals[i].x;
         vertex.normal.y = mesh->mNormals[i].y;
         vertex.normal.z = mesh->mNormals[i].z;*/
@@ -67,7 +63,7 @@ MeshObject* MeshRenderer::ProcessMesh(aiMesh* mesh, const aiScene* scene)
         vertices.push_back(vertex);
     }
 
-    //Get indices
+    // Get indices
     for (UINT i = 0; i < mesh->mNumFaces; i++)
     {
         aiFace face = mesh->mFaces[i];
@@ -77,4 +73,12 @@ MeshObject* MeshRenderer::ProcessMesh(aiMesh* mesh, const aiScene* scene)
     }
 
     return new MeshObject(m_game, vertices, indices);
+}
+
+void MeshRenderer::draw()
+{
+	for (MeshObject* meshObject : meshes)
+	{
+        meshObject->draw();
+	}
 }

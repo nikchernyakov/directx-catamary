@@ -21,7 +21,7 @@ Matrix Camera::getViewMatrix()
 	Vector3 target = { direction };
 	direction.Transform(direction, Matrix::CreateFromYawPitchRoll(yaw, pitch, 0), target);
 	target += transform.getPosition();
-	Vector3 up = { 0, -1, 0 };
+	Vector3 up = { 0, 1, 0 };
 	return Matrix::CreateLookAt(transform.getPosition(), target, up);
 }
 

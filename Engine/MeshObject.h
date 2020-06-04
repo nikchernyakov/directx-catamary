@@ -24,9 +24,15 @@ private:
 
 	UINT indicesCount;
 	UINT stride;
+	UINT offset = 0u;
 	
 	D3D11_PRIMITIVE_TOPOLOGY primitiveTopology;
 	ComPtr<ID3D11Buffer> pVertexBuffer = nullptr;
 	ComPtr<ID3D11Buffer> pIndexBuffer = nullptr;
+
+	ComPtr<ID3D11InputLayout> pInputLayout;
+	ComPtr<ID3D11VertexShader> pVertexShader;
+	ComPtr<ID3D11PixelShader> pPixelShader;
+	ComPtr<ID3D11Buffer> pConstantBuffer;
 };
 

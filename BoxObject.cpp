@@ -87,9 +87,9 @@ void BoxObject::preDraw()
 	// Update Constant Buffer
 	const ConstantBuffer cb =
 	{
-		transform->CreateWorldMatrix().Transpose(),
-		m_game->camera->getViewMatrix().Transpose(),
-		m_game->camera->getProjectionMatrix().Transpose(),
+		transform->CreateWorldMatrix(),
+		m_game->camera->getViewMatrix(),
+		m_game->camera->getProjectionMatrix(),
 	};
 	m_game->context->UpdateSubresource(pConstantBuffer.Get(), 0, NULL, &cb, 0, 0);
 }

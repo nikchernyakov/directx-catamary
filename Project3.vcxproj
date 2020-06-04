@@ -154,7 +154,7 @@
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PyramidObject .cpp" />
-    <ClCompile Include="SolarSystemGame.cpp" />
+    <ClCompile Include="KatamariGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MiniTri.fx">
@@ -186,7 +186,7 @@
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Engine\Vertex.h" />
     <ClInclude Include="PyramidObject.h" />
-    <ClInclude Include="SolarSystemGame.h" />
+    <ClInclude Include="KatamariGame.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Libraries\SimpleMath\SimpleMath.inl" />

@@ -5,11 +5,11 @@
 
 using namespace DirectX::SimpleMath;
 
-class SolarSystemGame : public Game
+class KatamariGame : public Game
 {
 public:
-	SolarSystemGame();
-	~SolarSystemGame();
+	KatamariGame();
+	~KatamariGame();
 
 	void init() override;
 protected:

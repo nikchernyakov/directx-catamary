@@ -17,10 +17,10 @@ struct PS_IN
 	float4 col : COLOR;
 };
 
-VS_DATA VSMain(float4 pos : POSITION, float4 color : COLOR)
+VS_DATA VSMain(float3 pos : POSITION, float4 color : COLOR)
 {
 	VS_DATA vso;
-	vso.pos = mul(pos, World);
+	vso.pos = mul(float4(pos, 1.0f), World);
 	vso.pos = mul(vso.pos, View);
 	vso.pos = mul(vso.pos, Projection);
 	vso.color = color;
