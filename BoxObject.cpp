@@ -2,36 +2,36 @@
 #include "BoxObject.h"
 #include "Engine/ConstantBuffer.h"
 
-BoxObject::BoxObject(Game* game, Vector3 position, Vector4 color, float boxSize, float boxSpeed)
-	: PrimitiveGameObject(game, position), m_boxSize(boxSize), m_boxSpeed(boxSpeed)
+BoxObject::BoxObject(Game* game, Vector3 position, Vector4 color, Vector3 boxSize)
+	: PrimitiveGameObject(game, position)
 {
 	m_vertices =
 	{
-		// Top vertices
+		// Front vertices
 		{
-			{-boxSize, -boxSize, -boxSize}, color
+			{-boxSize.x, -boxSize.y, -boxSize.z}, color
 		},
 		{
-			{-boxSize, +boxSize, -boxSize}, color
+			{-boxSize.x, +boxSize.y, -boxSize.z}, color
 		},
 		{
-			{+boxSize, +boxSize, -boxSize}, color
+			{+boxSize.x, +boxSize.y, -boxSize.z}, color
 		},
 		{
-			{ +boxSize, -boxSize, -boxSize}, color
+			{+boxSize.x, -boxSize.y, -boxSize.z}, color
 		},
-		// Bottom vertices
+		// Back vertices
 		{
-			{-boxSize, -boxSize, +boxSize}, color
-		},
-		{
-			{-boxSize, +boxSize, +boxSize}, color
+			{-boxSize.x, -boxSize.y, +boxSize.z}, color
 		},
 		{
-			{+boxSize, +boxSize, +boxSize}, color
+			{-boxSize.x, +boxSize.y, +boxSize.z}, color
 		},
 		{
-			{+boxSize, -boxSize, +boxSize}, color
+			{+boxSize.x, +boxSize.y, +boxSize.z}, color
+		},
+		{
+			{+boxSize.x, -boxSize.y, +boxSize.z}, color
 		}
 	};
 
@@ -63,10 +63,4 @@ BoxObject::BoxObject(Game* game, Vector3 position, Vector4 color, float boxSize,
 	};
 
 	PrimitiveGameObject::init();
-}
-
-void BoxObject::preDraw()
-{
-	m_rotateDelta += static_cast<float>(DirectX::XM_PI) * m_game->deltaTime * m_boxSpeed;
-	transform->rotate(Vector3::UnitY, m_rotateDelta);
 }

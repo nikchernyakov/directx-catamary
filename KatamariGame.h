@@ -19,5 +19,6 @@ protected:
 
 private:
 	ModelObject* model;
+	BoxObject* plane;
 };
 

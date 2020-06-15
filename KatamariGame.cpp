@@ -15,7 +15,11 @@ KatamariGame::~KatamariGame()
 
 void KatamariGame::init()
 {
+
+	plane = new BoxObject(this, { 0, 0, 0 }, { 1, 1, 1, 1 }, {1, 0.1, 1});
+	
 	model = new ModelObject(this, "Meshes/eyeball/eyeball_obj.obj");
+	model->transform->setPosition({ 0, 0.8, 0 });
 
 	camera = new KatamariCamera(this, {0, 1, -6}, model);
 	camera->rotate(0, -2);
@@ -52,5 +56,7 @@ void KatamariGame::update()
 
 void KatamariGame::drawObjects()
 {
+	plane->draw();
 	model->draw();
+	
 }
