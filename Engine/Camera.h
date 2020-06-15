@@ -9,8 +9,8 @@ using namespace DirectX::SimpleMath;
 class Camera
 {
 public:
-	Camera(Game* game, Vector3 position, Vector3 direction);
-	~Camera();
+	Camera(Game* game, Vector3 position, Vector3 direction = {0, 0, 1});
+	~Camera() = default;
 
 	Matrix getViewMatrix();
 	Matrix getProjectionMatrix() const;
@@ -23,10 +23,7 @@ private:
 
 	Vector3 direction;
 
-	float yaw = 0;
-	float pitch = 0;
-
-	float rotationSpeed = 0.05;
+	float rotationSpeed = 0.001;
 	float moveSpeed = 5;
 	
 	Matrix projectionMatrix;

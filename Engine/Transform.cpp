@@ -47,7 +47,7 @@ void Transform::rotate(const Vector3 axis, const float angle)
 Matrix Transform::CreateWorldMatrix() const
 {
 	Matrix mat = Matrix::CreateTranslation(m_position) * Matrix::CreateFromQuaternion(rotation);
-
+	
 	if (parent)
 	{
 		auto parMat = parent->CreateWorldMatrix();

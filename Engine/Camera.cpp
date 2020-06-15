@@ -1,25 +1,22 @@
 #include "Game.h"
 #include "Camera.h"
 #include "GameMath.h"
-#include <iostream>
 
 Camera::Camera(Game* game, Vector3 position, Vector3 direction) : direction(direction)
 {
 	transform.setPosition(position);
-
+	
 	projectionMatrix = Matrix::CreatePerspectiveFieldOfView(
 		120, static_cast<float>(game->screenWidth) / static_cast<float>(game->screenHeight),
 		0.01f, 100.0f);
 }
 
-Camera::~Camera()
-{
-}
-
 Matrix Camera::getViewMatrix()
 {
 	Vector3 target = { direction };
-	direction.Transform(direction, Matrix::CreateFromYawPitchRoll(yaw, pitch, 0), target);
+	Vector3::Transform(direction,
+		Matrix::CreateFromQuaternion(transform.rotation),
+		target);
 	target += transform.getPosition();
 	Vector3 up = { 0, 1, 0 };
 	return Matrix::CreateLookAt(transform.getPosition(), target, up);
@@ -32,15 +29,14 @@ Matrix Camera::getProjectionMatrix() const
 
 void Camera::rotate(float dx, float dy)
 {
-	yaw = wrap_angle(yaw + dx * rotationSpeed);
-	pitch = clamp(pitch + dy * rotationSpeed, 0.995f * -DirectX::XM_PIDIV2, 0.995f * DirectX::XM_PIDIV2);
+	transform.rotation += Quaternion::CreateFromYawPitchRoll(dx * rotationSpeed, dy * rotationSpeed, 0);
 }
 
 void Camera::translate(Vector3 translation)
 {
 	XMStoreFloat3(&translation, DirectX::XMVector3Transform(
 		DirectX::XMLoadFloat3(&translation),
-		DirectX::XMMatrixRotationRollPitchYaw(pitch, yaw, 0.0f) *
+		Matrix::CreateFromQuaternion(transform.rotation) *
 		DirectX::XMMatrixScaling(moveSpeed, moveSpeed, moveSpeed)
 	));
 	transform.addPosition({

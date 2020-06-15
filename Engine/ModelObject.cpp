@@ -26,4 +26,5 @@ void ModelObject::draw()
 void ModelObject::addMesh(MeshObject* mesh)
 {
 	meshes.push_back(mesh);
+	mesh->transform->setParent(transform);
 }

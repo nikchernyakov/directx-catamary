@@ -187,7 +187,7 @@ void PrimitiveGameObject::draw()
 	// Update Constant Buffer
 	const ConstantBuffer cb =
 	{
-		Matrix::Identity,
+		transform->CreateWorldMatrix(),
 		m_game->camera->getViewMatrix(),
 		m_game->camera->getProjectionMatrix(),
 	};
