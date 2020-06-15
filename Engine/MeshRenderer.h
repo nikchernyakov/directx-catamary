@@ -10,6 +10,7 @@
 #include "Vertex.h"
 
 class Game;
+class ModelObject;
 class MeshObject;
 
 using namespace Assimp;
@@ -19,13 +20,11 @@ class MeshRenderer
 public:
 	MeshRenderer(Game* game);
 	
-	bool addModel(const std::string& filePath);
-	void processNode(aiNode* node, const aiScene* scene);
+	bool addModel(ModelObject* model, const std::string& filePath);
+	void processNode(ModelObject* model, aiNode* node, const aiScene* scene);
 	MeshObject* processMesh(aiMesh* mesh, const aiScene* scene);
-	void draw();
 
 private:
 	Game* m_game;
-	std::vector<MeshObject*> meshes;
 };
 

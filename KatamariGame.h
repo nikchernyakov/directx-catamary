@@ -2,6 +2,7 @@
 #include "Engine/Game.h"
 #include "BoxObject.h"
 #include "PyramidObject.h"
+#include "Engine/ModelObject.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -17,10 +18,6 @@ protected:
 	void drawObjects();
 
 private:
-	BoxObject* box1;
-	BoxObject* box2;
-	BoxObject* box3;
-	BoxObject* box4;
-	PyramidObject* pyramid;
+	ModelObject* model;
 };
 

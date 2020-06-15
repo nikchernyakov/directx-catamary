@@ -146,6 +146,7 @@
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\Game.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
+    <ClCompile Include="Engine\ModelObject.cpp" />
     <ClCompile Include="Engine\PrimitiveGameObject.cpp" />
     <ClCompile Include="Engine\InputDevice.cpp" />
     <ClCompile Include="Engine\Libraries\SimpleMath\SimpleMath.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Engine\Game.h" />
     <ClInclude Include="Engine\GameMath.h" />
     <ClInclude Include="Engine\GameObject.h" />
+    <ClInclude Include="Engine\ModelObject.h" />
     <ClInclude Include="Engine\PrimitiveGameObject.h" />
     <ClInclude Include="Engine\InputDevice.h" />
     <ClInclude Include="Engine\Libraries\SimpleMath\SimpleMath.h" />

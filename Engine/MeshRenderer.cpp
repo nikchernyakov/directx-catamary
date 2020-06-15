@@ -1,4 +1,4 @@
-#include "MeshObject.h"
+#include "ModelObject.h"
 #include "MeshRenderer.h"
 #include "assimp/postprocess.h"
 
@@ -6,7 +6,7 @@ MeshRenderer::MeshRenderer(Game* game) : m_game(game)
 {
 }
 
-bool MeshRenderer::addModel(const std::string& filePath)
+bool MeshRenderer::addModel(ModelObject* model, const std::string& filePath)
 {
     Importer importer;
 
@@ -17,22 +17,21 @@ bool MeshRenderer::addModel(const std::string& filePath)
     if (pScene == nullptr)
         return false;
 
-    
-    processNode(pScene->mRootNode, pScene);
+	processNode(model, pScene->mRootNode, pScene);
     return true;
 }
 
-void MeshRenderer::processNode(aiNode* node, const aiScene* scene)
+void MeshRenderer::processNode(ModelObject* model, aiNode* node, const aiScene* scene)
 {
     for (UINT i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        meshes.push_back(processMesh(mesh, scene));
+        model->addMesh(processMesh(mesh, scene));
     }
 
     for (UINT i = 0; i < node->mNumChildren; i++)
     {
-        processNode(node->mChildren[i], scene);
+        processNode(model, node->mChildren[i], scene);
     }
 }
 
@@ -73,12 +72,4 @@ MeshObject* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene)
     }
 
     return new MeshObject(m_game, vertices, indices);
-}
-
-void MeshRenderer::draw()
-{
-	for (MeshObject* meshObject : meshes)
-	{
-        meshObject->draw();
-	}
 }

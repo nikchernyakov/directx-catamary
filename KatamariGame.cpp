@@ -15,7 +15,7 @@ KatamariGame::~KatamariGame()
 void KatamariGame::init()
 {
 	camera = new Camera(this, {0, 0, -10}, {0, 0, 1});
-	meshRenderer->addModel("Meshes/eyeball/eyeball_obj.obj");
+	model = new ModelObject(this, "Meshes/eyeball/eyeball_obj.obj");
 }
 
 void KatamariGame::update()
@@ -53,5 +53,5 @@ void KatamariGame::update()
 
 void KatamariGame::drawObjects()
 {
-	meshRenderer->draw();
+	model->draw();
 }
