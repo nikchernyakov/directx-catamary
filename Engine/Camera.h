@@ -17,8 +17,9 @@ public:
 
 	void rotate(float dx, float dy);
 	void translate(Vector3 translation);
-
-private:
+	virtual void update();
+	
+protected:
 	Transform transform;
 
 	Vector3 direction;

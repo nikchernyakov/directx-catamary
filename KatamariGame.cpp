@@ -1,5 +1,6 @@
 #include "KatamariGame.h"
 #include <iostream>
+#include "KatamariCamera.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -14,14 +15,15 @@ KatamariGame::~KatamariGame()
 
 void KatamariGame::init()
 {
-	camera = new Camera(this, {0, 0, -10});
-	camera->rotate(0, 0);
 	model = new ModelObject(this, "Meshes/eyeball/eyeball_obj.obj");
+
+	camera = new KatamariCamera(this, {0, 1, -6}, model);
+	camera->rotate(0, -2);
+	
 }
 
 void KatamariGame::update()
 {
-	
 	
 	while (const auto delta = mouse->ReadRawDelta())
 	{
@@ -44,14 +46,8 @@ void KatamariGame::update()
 	{
 		model->transform->addPosition({ -deltaTime,0.0f,0.0f });
 	}
-	/*if (inputDevice->KeyIsPressed('Q'))
-	{
-		camera->translate({ 0.0f,deltaTime,0.0f });
-	}
-	if (inputDevice->KeyIsPressed('E'))
-	{
-		camera->translate({ 0.0f,-deltaTime,0.0f });
-	}*/
+
+	camera->update();
 }
 
 void KatamariGame::drawObjects()

@@ -46,3 +46,7 @@ void Camera::translate(Vector3 translation)
 		}
 	);
 }
+
+void Camera::update()
+{
+}

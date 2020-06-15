@@ -72,6 +72,9 @@
     <ClCompile Include="Engine\ModelObject.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="KatamariCamera.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoxObject.h">
@@ -124,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="Engine\ModelObject.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="KatamariCamera.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
