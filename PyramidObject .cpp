@@ -4,11 +4,11 @@
 
 using namespace DirectX;
 
-PyramidObject::PyramidObject(Game* game, Vector3 position, Vector4 color) : GameObject(game, position, color)
+PyramidObject::PyramidObject(Game* game, Vector3 position, Vector4 color) : PrimitiveGameObject(game, position)
 {
 
 	// Создание буфера вершин (пять углов пирамиды)
-	const std::vector<Vertex> vertices =
+	m_vertices =
 	{
 		/* координаты X, Y, Z				цвет R, G, B, A					 */
 		{XMFLOAT3(0.0f, 1.5f, 0.0f), XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f)},
@@ -20,7 +20,7 @@ PyramidObject::PyramidObject(Game* game, Vector3 position, Vector4 color) : Game
 
 	// Создание буфера индексов:
 	// Создание массива с данными
-	const std::vector<unsigned short> indices =
+	m_indices =
 	{
 		// индексы массива vertices[], по которым строятся треугольники
 		0, 2, 1, /* Треугольник 1 = vertices[0], vertices[2], vertices[3] */
@@ -31,9 +31,7 @@ PyramidObject::PyramidObject(Game* game, Vector3 position, Vector4 color) : Game
 		2, 4, 3,
 	};
 
-	indicesCount = std::size(indices);
-
-	init(vertices, indices);
+	PrimitiveGameObject::init();
 }
 
 void PyramidObject::preDraw()

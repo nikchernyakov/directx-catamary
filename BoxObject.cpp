@@ -3,9 +3,9 @@
 #include "Engine/ConstantBuffer.h"
 
 BoxObject::BoxObject(Game* game, Vector3 position, Vector4 color, float boxSize, float boxSpeed)
-	: GameObject(game, position, color), m_boxSize(boxSize), m_boxSpeed(boxSpeed)
+	: PrimitiveGameObject(game, position), m_boxSize(boxSize), m_boxSpeed(boxSpeed)
 {
-	const std::vector<Vertex> vertices =
+	m_vertices =
 	{
 		// Top vertices
 		{
@@ -35,21 +35,8 @@ BoxObject::BoxObject(Game* game, Vector3 position, Vector4 color, float boxSize,
 		}
 	};
 
-	const std::vector<unsigned short> indices =
+	m_indices =
 	{
-		/*0, 1, 3,
-		1, 2, 3,
-		0, 4, 3,
-		4, 7, 3,
-		0, 5, 1,
-		0, 4, 5,
-		1, 5, 2,
-		2, 5, 6,
-		2, 6, 3,
-		3, 6, 7,
-		3, 7, 4,
-		4, 7, 5*/
-		
 		// front face
 		0, 1, 2,
 		0, 2, 3,
@@ -74,22 +61,12 @@ BoxObject::BoxObject(Game* game, Vector3 position, Vector4 color, float boxSize,
 		4, 0, 3,
 		4, 3, 7
 	};
-	indicesCount = std::size(indices);
 
-	init(vertices, indices);
+	PrimitiveGameObject::init();
 }
 
 void BoxObject::preDraw()
 {
 	m_rotateDelta += static_cast<float>(DirectX::XM_PI) * m_game->deltaTime * m_boxSpeed;
 	transform->rotate(Vector3::UnitY, m_rotateDelta);
-
-	// Update Constant Buffer
-	const ConstantBuffer cb =
-	{
-		transform->CreateWorldMatrix(),
-		m_game->camera->getViewMatrix(),
-		m_game->camera->getProjectionMatrix(),
-	};
-	m_game->context->UpdateSubresource(pConstantBuffer.Get(), 0, NULL, &cb, 0, 0);
 }

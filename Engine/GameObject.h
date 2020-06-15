@@ -13,32 +13,18 @@ class Game;
 class GameObject
 {
 public:
-	GameObject(Game* game, Vector3 position, Vector4 color);
-	virtual ~GameObject() = default;
 	
-	void init(const std::vector<Vertex>& vertices, const std::vector<unsigned short>& indices);
+	GameObject(Game* game, Vector3 position = Vector3::Zero);
+	virtual ~GameObject() = default;
 
-	virtual void preDraw() = 0;
-	void draw();
+	virtual void init() = 0;
+	virtual void update() = 0;
+	virtual void draw() = 0;
 
 	Transform* transform;
-	
+
 protected:
 	Game* m_game;
 
-	ComPtr<ID3D11Buffer> pIndexBuffer;
-	ComPtr<ID3D11Buffer> pVertexBuffer;
-	UINT indicesCount;
-	
-	ComPtr<ID3D11InputLayout> pInputLayout;
-	ComPtr<ID3D11VertexShader> pVertexShader;
-	ComPtr<ID3D11PixelShader> pPixelShader;
-	ComPtr<ID3D11Buffer> pConstantBuffer;
-	D3D11_SUBRESOURCE_DATA* csd;
-	
-	Vector4 m_color;
-
-	UINT stride;
-	UINT offset = 0u;
 };
 

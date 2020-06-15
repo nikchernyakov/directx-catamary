@@ -146,6 +146,7 @@
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\Game.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
+    <ClCompile Include="Engine\PrimitiveGameObject.cpp" />
     <ClCompile Include="Engine\InputDevice.cpp" />
     <ClCompile Include="Engine\Libraries\SimpleMath\SimpleMath.cpp" />
     <ClCompile Include="Engine\MeshObject.cpp" />
@@ -177,12 +178,12 @@
     <ClInclude Include="Engine\Game.h" />
     <ClInclude Include="Engine\GameMath.h" />
     <ClInclude Include="Engine\GameObject.h" />
+    <ClInclude Include="Engine\PrimitiveGameObject.h" />
     <ClInclude Include="Engine\InputDevice.h" />
     <ClInclude Include="Engine\Libraries\SimpleMath\SimpleMath.h" />
     <ClInclude Include="Engine\MeshObject.h" />
     <ClInclude Include="Engine\MeshRenderer.h" />
     <ClInclude Include="Engine\Mouse.h" />
-    <ClInclude Include="Engine\Object.h" />
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Engine\Vertex.h" />
     <ClInclude Include="PyramidObject.h" />

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Engine/GameObject.h"
+#include "Engine/PrimitiveGameObject.h"
 
-class PyramidObject : public GameObject
+class PyramidObject : public PrimitiveGameObject
 {
 
 public:
