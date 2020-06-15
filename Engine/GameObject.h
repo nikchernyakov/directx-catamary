@@ -1,6 +1,6 @@
 #pragma once
 #include <d3d11.h>
-#include "Libraries/SimpleMath/SimpleMath.h"
+#include "SimpleMath.h"
 #include "Vertex.h"
 #include <wrl/client.h>
 #include "Transform.h"

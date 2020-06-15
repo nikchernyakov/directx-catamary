@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Libraries/SimpleMath/SimpleMath.h"
+#include "SimpleMath.h"
 #include "Transform.h"
 
 class Game;

@@ -22,9 +22,6 @@
     <Filter Include="Engine\Libraries">
       <UniqueIdentifier>{4f352ec0-f727-42d0-ba51-f558fb86b8b5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Libraries\SimpleMath">
-      <UniqueIdentifier>{8463cd62-77b5-470c-bc78-0f84535edabe}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -50,9 +47,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Transform.cpp">
       <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Libraries\SimpleMath\SimpleMath.cpp">
-      <Filter>Engine\Libraries\SimpleMath</Filter>
     </ClCompile>
     <ClCompile Include="Engine\MeshObject.cpp">
       <Filter>Engine</Filter>
@@ -107,9 +101,6 @@
     <ClInclude Include="Engine\Vertex.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Libraries\SimpleMath\SimpleMath.h">
-      <Filter>Engine\Libraries\SimpleMath</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\MeshObject.h">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -144,9 +135,6 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Engine\Libraries\SimpleMath\SimpleMath.inl">
-      <Filter>Engine\Libraries\SimpleMath</Filter>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
 </Project>

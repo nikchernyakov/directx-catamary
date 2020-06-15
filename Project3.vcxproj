@@ -149,7 +149,6 @@
     <ClCompile Include="Engine\ModelObject.cpp" />
     <ClCompile Include="Engine\PrimitiveGameObject.cpp" />
     <ClCompile Include="Engine\InputDevice.cpp" />
-    <ClCompile Include="Engine\Libraries\SimpleMath\SimpleMath.cpp" />
     <ClCompile Include="Engine\MeshObject.cpp" />
     <ClCompile Include="Engine\MeshRenderer.cpp" />
     <ClCompile Include="Engine\Mouse.cpp" />
@@ -183,7 +182,6 @@
     <ClInclude Include="Engine\ModelObject.h" />
     <ClInclude Include="Engine\PrimitiveGameObject.h" />
     <ClInclude Include="Engine\InputDevice.h" />
-    <ClInclude Include="Engine\Libraries\SimpleMath\SimpleMath.h" />
     <ClInclude Include="Engine\MeshObject.h" />
     <ClInclude Include="Engine\MeshRenderer.h" />
     <ClInclude Include="Engine\Mouse.h" />
@@ -194,7 +192,6 @@
     <ClInclude Include="KatamariGame.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Engine\Libraries\SimpleMath\SimpleMath.inl" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
