@@ -12,7 +12,7 @@ class Game
 {
 public:
 	Game();
-	~Game();
+	virtual ~Game();
 
 	virtual void init();
 	

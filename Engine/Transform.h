@@ -32,6 +32,7 @@ public:
 
 private:
 	Vector3 m_position;
+	Vector3 m_eulerAngles = Vector3::Zero;
 	Matrix world;
 };
 

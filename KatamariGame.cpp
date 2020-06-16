@@ -15,14 +15,14 @@ KatamariGame::~KatamariGame()
 
 void KatamariGame::init()
 {
-
-	plane = new BoxObject(this, { 0, 0, 0 }, { 1, 1, 1, 1 }, {1, 0.1, 1});
+	/*plane = new BoxObject(this, { 0, 0, 0 }, 
+		{ 1, 1, 1, 1 }, {1, 0.1, 1});*/
 	
-	model = new ModelObject(this, "Meshes/eyeball/eyeball_obj.obj");
-	model->transform->setPosition({ 0, 0.8, 0 });
+	katamariSphere = new KatamariSphere(this, "Meshes/eyeball/eyeball_obj.obj", L"Meshes/eyeball/eyes_blue.jpg");
+	//katamariSphere->transform->setPosition({ 0, 0.8, 0 });
 
-	camera = new KatamariCamera(this, {0, 1, -6}, model);
-	camera->rotate(0, -2);
+	camera = new KatamariCamera(this, {0, 0, -6}, katamariSphere);
+	//camera->rotate(0, -2);
 	
 }
 
@@ -36,27 +36,33 @@ void KatamariGame::update()
 
 	if (inputDevice->KeyIsPressed('W'))
 	{
-		model->transform->addPosition({ 0.0f,0.0f,deltaTime });
+		katamariSphere->transform->addPosition({ 0.0f,0.0f,deltaTime });
+		//camera->translate({ 0.0f,0.0f,deltaTime });
 	}
 	if (inputDevice->KeyIsPressed('A'))
 	{
-		model->transform->addPosition({ deltaTime,0.0f,0.0f });
+		katamariSphere->transform->addPosition({ deltaTime,0.0f,0.0f });
+		//camera->translate({ deltaTime,0.0f,0.0f });
 	}
 	if (inputDevice->KeyIsPressed('S'))
 	{
-		model->transform->addPosition({ 0.0f,0.0f,-deltaTime });
+		katamariSphere->transform->addPosition({ 0.0f,0.0f,-deltaTime });
+		//camera->translate({ 0.0f,0.0f,-deltaTime });
 	}
 	if (inputDevice->KeyIsPressed('D'))
 	{
-		model->transform->addPosition({ -deltaTime,0.0f,0.0f });
+		katamariSphere->transform->addPosition({ -deltaTime,0.0f,0.0f });
+		//camera->translate({ -deltaTime,0.0f,0.0f });
 	}
+
+	katamariSphere->transform->rotate({ 0, 1, 0 }, deltaTime);
 
 	camera->update();
 }
 
 void KatamariGame::drawObjects()
 {
-	plane->draw();
-	model->draw();
+	//plane->draw();
+	katamariSphere->draw();
 	
 }

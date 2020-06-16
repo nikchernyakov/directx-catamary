@@ -4,6 +4,7 @@
 #include "PrimitiveGameObject.h"
 #include "ConstantBuffer.h"
 #include <iostream>
+#include <WICTextureLoader.h>
 
 using namespace DirectX::SimpleMath;
 
@@ -131,7 +132,8 @@ void PrimitiveGameObject::init()
 			0,
 			0,
 			D3D11_INPUT_PER_VERTEX_DATA,
-			0},
+			0
+		},
 		D3D11_INPUT_ELEMENT_DESC {
 			"COLOR",
 			0,
@@ -139,13 +141,23 @@ void PrimitiveGameObject::init()
 			0,
 			12,
 			D3D11_INPUT_PER_VERTEX_DATA,
-			0}
+			0
+		},
+		D3D11_INPUT_ELEMENT_DESC {
+			"TEXCOORD",
+			0,
+			DXGI_FORMAT_R32G32_FLOAT,
+			0,
+			D3D11_APPEND_ALIGNED_ELEMENT,
+			D3D11_INPUT_PER_VERTEX_DATA,
+			0
+		},
 	};
 
 	ID3D11InputLayout* layout;
 	hr = m_game->device->CreateInputLayout(
 		inputElements,
-		2,
+		std::size(inputElements),
 		vertexBC->GetBufferPointer(),
 		vertexBC->GetBufferSize(),
 		&pInputLayout);
@@ -173,15 +185,11 @@ void PrimitiveGameObject::draw()
 		&stride,
 		&offset
 		);
-
 	m_game->context->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
-
 	m_game->context->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	m_game->context->PSSetShader(pPixelShader.Get(), nullptr, 0u);
-
 	m_game->context->VSSetShader(pVertexShader.Get(), nullptr, 0u);
-
 	m_game->context->IASetInputLayout(pInputLayout.Get());
 
 	// Update Constant Buffer
@@ -192,7 +200,6 @@ void PrimitiveGameObject::draw()
 		m_game->camera->getProjectionMatrix(),
 	};
 	m_game->context->UpdateSubresource(pConstantBuffer.Get(), 0, NULL, &cb, 0, 0);
-
 	m_game->context->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
 
 	m_game->context->DrawIndexed(indicesCount, 0, 0);

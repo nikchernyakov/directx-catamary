@@ -41,7 +41,8 @@ void Transform::addPosition(Vector3 pos)
 
 void Transform::rotate(const Vector3 axis, const float angle)
 {
-	rotation = Quaternion::CreateFromYawPitchRoll(axis.y * angle, axis.x * angle, axis.z * angle);
+	m_eulerAngles = Vector3 { axis.x * angle + m_eulerAngles.x, axis.y * angle + m_eulerAngles.y, axis.z * angle + m_eulerAngles.z };
+	rotation = Quaternion::CreateFromYawPitchRoll(m_eulerAngles.y, m_eulerAngles.x, m_eulerAngles.z);
 }
 
 Matrix Transform::CreateWorldMatrix() const
@@ -50,8 +51,7 @@ Matrix Transform::CreateWorldMatrix() const
 	
 	if (parent)
 	{
-		auto parMat = parent->CreateWorldMatrix();
-		mat = mat * Matrix::CreateTranslation(parMat.Translation());
+		mat *= parent->CreateWorldMatrix();
 	}
 
 	return mat;

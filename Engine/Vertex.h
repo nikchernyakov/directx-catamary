@@ -9,6 +9,8 @@ class Vertex
 public:
 	Vector3 pos;
 	Vector4 color;
+	Vector2 texCord;
+	//Vector3 normal;
 public:
 	Vertex() = default;
 	Vertex(Vector3 p, Vector4 c) : pos(p), color(c) {

@@ -8,5 +8,5 @@ KatamariCamera::KatamariCamera(Game* game, Vector3 position, GameObject* observe
 
 void KatamariCamera::update()
 {
-	transform.setPosition(m_observedObject->transform->getPosition() + m_offset);
+	//transform.setPosition(m_observedObject->transform->getPosition() + m_offset);
 }

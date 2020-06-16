@@ -1,8 +1,8 @@
 #pragma once
 #include "Engine/Game.h"
 #include "BoxObject.h"
-#include "PyramidObject.h"
 #include "Engine/ModelObject.h"
+#include "KatamariSphere.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -18,7 +18,7 @@ protected:
 	void drawObjects();
 
 private:
-	ModelObject* model;
+	KatamariSphere* katamariSphere;
 	BoxObject* plane;
 };
 

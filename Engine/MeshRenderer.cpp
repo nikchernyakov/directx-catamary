@@ -48,16 +48,16 @@ MeshObject* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene)
         	Vector4{0, 1, 0, 1}
         };
 
-        /*
-        vertex.normal.x = mesh->mNormals[i].x;
+        
+        /*vertex.normal.x = mesh->mNormals[i].x;
         vertex.normal.y = mesh->mNormals[i].y;
         vertex.normal.z = mesh->mNormals[i].z;*/
 
-        /*if (mesh->mTextureCoords[0])
+        if (mesh->mTextureCoords[0])
         {
             vertex.texCord.x = mesh->mTextureCoords[0][i].x;
             vertex.texCord.y = mesh->mTextureCoords[0][i].y;
-        }*/
+        }
 
         vertices.push_back(vertex);
     }

@@ -154,6 +154,7 @@
     <ClCompile Include="Engine\Mouse.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="KatamariCamera.cpp" />
+    <ClCompile Include="KatamariSphere.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PyramidObject .cpp" />
     <ClCompile Include="KatamariGame.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Engine\Vertex.h" />
     <ClInclude Include="KatamariCamera.h" />
+    <ClInclude Include="KatamariSphere.h" />
     <ClInclude Include="PyramidObject.h" />
     <ClInclude Include="KatamariGame.h" />
   </ItemGroup>
