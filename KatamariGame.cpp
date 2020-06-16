@@ -36,26 +36,28 @@ void KatamariGame::update()
 
 	if (inputDevice->KeyIsPressed('W'))
 	{
-		katamariSphere->transform->addPosition({ 0.0f,0.0f,deltaTime });
+		katamariSphere->transform->addPosition({ 0.0f, 0.0f, deltaTime });
+		katamariSphere->transform->rotate({ 1, 0, 0 }, deltaTime);
 		//camera->translate({ 0.0f,0.0f,deltaTime });
 	}
 	if (inputDevice->KeyIsPressed('A'))
 	{
-		katamariSphere->transform->addPosition({ deltaTime,0.0f,0.0f });
+		katamariSphere->transform->addPosition({ deltaTime, 0.0f, 0.0f });
+		katamariSphere->transform->rotate({ 0, 0, -1 }, deltaTime);
 		//camera->translate({ deltaTime,0.0f,0.0f });
 	}
 	if (inputDevice->KeyIsPressed('S'))
 	{
-		katamariSphere->transform->addPosition({ 0.0f,0.0f,-deltaTime });
+		katamariSphere->transform->addPosition({ 0.0f, 0.0f, -deltaTime });
+		katamariSphere->transform->rotate({ -1, 0, 0 }, deltaTime);
 		//camera->translate({ 0.0f,0.0f,-deltaTime });
 	}
 	if (inputDevice->KeyIsPressed('D'))
 	{
-		katamariSphere->transform->addPosition({ -deltaTime,0.0f,0.0f });
+		katamariSphere->transform->addPosition({ -deltaTime, 0.0f, 0.0f });
+		katamariSphere->transform->rotate({ 0, 0, 1 }, deltaTime);
 		//camera->translate({ -deltaTime,0.0f,0.0f });
 	}
-
-	katamariSphere->transform->rotate({ 0, 1, 0 }, deltaTime);
 
 	camera->update();
 }
