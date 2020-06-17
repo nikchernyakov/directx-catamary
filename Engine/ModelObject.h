@@ -6,7 +6,7 @@ class ModelObject : public GameObject
 {
 public:
 
-	ModelObject(Game* game, const std::string& filePath, const wchar_t* texturePath);
+	ModelObject(Game* game, const std::string& filePath, Shader* shader);
 
 	void init() override;
 	void update() override;
@@ -16,9 +16,7 @@ public:
 protected:
 	
 	std::vector<MeshObject*> meshes;
-
-	ID3D11ShaderResourceView* g_pTextureRV = NULL;        // Объект текстуры
-	ID3D11SamplerState* g_pSamplerLinear = NULL;    // Параметры наложения текстуры
+	Shader* m_shader;
 	
 };
 

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Engine/PrimitiveGameObject.h"
+#include "Engine/RenderedGameObject.h"
 
-class BoxObject : public PrimitiveGameObject
+class BoxObject : public RenderedGameObject
 {
 
 public:
-	BoxObject(Game* game, Vector3 position, Vector4 color, Vector3 boxSize);
+	BoxObject(Game* game, Shader* shader, Vector3 position, Vector4 color, Vector3 boxSize);
 };
 

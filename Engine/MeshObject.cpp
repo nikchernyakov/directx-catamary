@@ -6,10 +6,11 @@
 
 MeshObject::MeshObject(Game* game,
                        std::vector<Vertex>& vertices,
-                       std::vector<DWORD>& indices) : PrimitiveGameObject(game)
+                       std::vector<DWORD>& indices,
+					   Shader* shader) : RenderedGameObject(game, shader)
 {
     m_vertices = vertices;
     m_indices = indices;
 
-    PrimitiveGameObject::init();
+    RenderedGameObject::init();
 }

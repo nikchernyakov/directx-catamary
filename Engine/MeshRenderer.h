@@ -12,6 +12,7 @@
 class Game;
 class ModelObject;
 class MeshObject;
+class Shader;
 
 using namespace Assimp;
 
@@ -20,9 +21,9 @@ class MeshRenderer
 public:
 	MeshRenderer(Game* game);
 	
-	bool addModel(ModelObject* model, const std::string& filePath);
-	void processNode(ModelObject* model, aiNode* node, const aiScene* scene);
-	MeshObject* processMesh(aiMesh* mesh, const aiScene* scene);
+	bool addModel(ModelObject* model, const std::string& filePath, Shader* shader);
+	void processNode(ModelObject* model, aiNode* node, const aiScene* scene, Shader* shader);
+	MeshObject* processMesh(aiMesh* mesh, const aiScene* scene, Shader* shader);
 
 private:
 	Game* m_game;

@@ -2,8 +2,8 @@
 #include "BoxObject.h"
 #include "Engine/ConstantBuffer.h"
 
-BoxObject::BoxObject(Game* game, Vector3 position, Vector4 color, Vector3 boxSize)
-	: PrimitiveGameObject(game, position)
+BoxObject::BoxObject(Game* game, Shader* shader, Vector3 position, Vector4 color, Vector3 boxSize)
+	: RenderedGameObject(game, shader, position)
 {
 	m_vertices =
 	{
@@ -62,5 +62,5 @@ BoxObject::BoxObject(Game* game, Vector3 position, Vector4 color, Vector3 boxSiz
 		4, 3, 7
 	};
 
-	PrimitiveGameObject::init();
+	RenderedGameObject::init();
 }

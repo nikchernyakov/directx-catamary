@@ -3,17 +3,18 @@
 #include <d3d11_1.h>
 #include <vector>
 
-#include "PrimitiveGameObject.h"
+#include "RenderedGameObject.h"
 
 class Game;
 using namespace Microsoft::WRL;
 
-class MeshObject : public PrimitiveGameObject
+class MeshObject : public RenderedGameObject
 {
 public:
 	MeshObject(Game* game,
 		std::vector<Vertex>& vertices,
-		std::vector<DWORD>& indices);
+		std::vector<DWORD>& indices,
+		Shader* shader);
 
 };
 

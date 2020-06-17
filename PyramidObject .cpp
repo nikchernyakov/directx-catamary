@@ -4,7 +4,8 @@
 
 using namespace DirectX;
 
-PyramidObject::PyramidObject(Game* game, Vector3 position, Vector4 color) : PrimitiveGameObject(game, position)
+PyramidObject::PyramidObject(Game* game, Shader* shader, Vector3 position, Vector4 color)
+: RenderedGameObject(game, shader, position)
 {
 
 	// Создание буфера вершин (пять углов пирамиды)
@@ -31,7 +32,7 @@ PyramidObject::PyramidObject(Game* game, Vector3 position, Vector4 color) : Prim
 		2, 4, 3,
 	};
 
-	PrimitiveGameObject::init();
+	RenderedGameObject::init();
 }
 
 void PyramidObject::preDraw()

@@ -7,7 +7,7 @@ class Game;
 class KatamariSphere : public ModelObject
 {
 public:
-	KatamariSphere(Game* game, const std::string& filePath, const wchar_t* texturePath);
+	KatamariSphere(Game* game, const std::string& filePath, Shader* shader);
 
 	DirectX::BoundingSphere collider;
 };

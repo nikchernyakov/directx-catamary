@@ -3,6 +3,7 @@
 #include "BoxObject.h"
 #include "Engine/ModelObject.h"
 #include "KatamariSphere.h"
+#include "Engine/TexturedShader.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -20,5 +21,8 @@ protected:
 private:
 	KatamariSphere* katamariSphere;
 	BoxObject* plane;
+
+	TexturedShader* texturedShader;
+	Texture* texture;
 };
 

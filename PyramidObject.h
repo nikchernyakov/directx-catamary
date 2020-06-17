@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Engine/PrimitiveGameObject.h"
+#include "Engine/RenderedGameObject.h"
 
-class PyramidObject : public PrimitiveGameObject
+class PyramidObject : public RenderedGameObject
 {
 
 public:
-	PyramidObject(Game* game, Vector3 position, Vector4 color);
+	PyramidObject(Game* game, Shader* shader, Vector3 position, Vector4 color);
 
 	void preDraw();
 private:

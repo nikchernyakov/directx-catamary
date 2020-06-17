@@ -1,12 +1,13 @@
 #include "ModelObject.h"
 #include "MeshRenderer.h"
+#include "Shader.h"
 #include "assimp/postprocess.h"
 
 MeshRenderer::MeshRenderer(Game* game) : m_game(game)
 {
 }
 
-bool MeshRenderer::addModel(ModelObject* model, const std::string& filePath)
+bool MeshRenderer::addModel(ModelObject* model, const std::string& filePath, Shader* shader)
 {
     Importer importer;
 
@@ -17,25 +18,25 @@ bool MeshRenderer::addModel(ModelObject* model, const std::string& filePath)
     if (pScene == nullptr)
         return false;
 
-	processNode(model, pScene->mRootNode, pScene);
+	processNode(model, pScene->mRootNode, pScene, shader);
     return true;
 }
 
-void MeshRenderer::processNode(ModelObject* model, aiNode* node, const aiScene* scene)
+void MeshRenderer::processNode(ModelObject* model, aiNode* node, const aiScene* scene, Shader* shader)
 {
     for (UINT i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        model->addMesh(processMesh(mesh, scene));
+        model->addMesh(processMesh(mesh, scene, shader));
     }
 
     for (UINT i = 0; i < node->mNumChildren; i++)
     {
-        processNode(model, node->mChildren[i], scene);
+        processNode(model, node->mChildren[i], scene, shader);
     }
 }
 
-MeshObject* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene)
+MeshObject* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene, Shader* shader)
 {
     std::vector<Vertex> vertices;
     std::vector<DWORD> indices;
@@ -71,5 +72,5 @@ MeshObject* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene)
             indices.push_back(face.mIndices[j]);
     }
 
-    return new MeshObject(m_game, vertices, indices);
+    return new MeshObject(m_game, vertices, indices, shader);
 }
