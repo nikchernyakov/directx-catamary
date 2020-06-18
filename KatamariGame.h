@@ -19,11 +19,15 @@ public:
 protected:
 	void update() override;
 	void drawObjects();
+	void collisionCheck(GameObject* gameObject);
 
 private:
 	SceneGameObject* katamariPlayer;
 	KatamariSphere* katamariSphere;
 	BoxObject* plane;
+	BoxObject* box1;
+	BoxObject* box2;
+	BoxObject* box3;
 
 	Shader* shader;
 	TexturedShader* texturedShader;

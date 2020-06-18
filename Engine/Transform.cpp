@@ -29,9 +29,14 @@ void Transform::setParent(Transform* p)
 	updateWorldMatrix();
 }
 
-Vector3 Transform::getPosition()
+Vector3 Transform::getPosition() const
 {
 	return m_position;
+}
+
+Vector3 Transform::getWorldPosition() const
+{
+	return m_world.Translation();
 }
 
 void Transform::setPosition(Vector3 pos)
@@ -50,6 +55,7 @@ void Transform::addLocalRotation(Vector3 axis, const float angle)
 {
 	/*m_eulerAngles += axis * angle;
 	rotation = Quaternion::CreateFromYawPitchRoll(m_eulerAngles.y, m_eulerAngles.x, m_eulerAngles.z);*/
+
 	rotation = Quaternion::CreateFromRotationMatrix(Matrix::CreateFromAxisAngle(axis, angle) * m_world);
 	updateWorldMatrix();
 }
@@ -63,7 +69,7 @@ void Transform::updateWorldMatrix()
 		m_world *= parent->getWorldMatrix();
 	}
 
-	for (std::shared_ptr<Transform> element : children)
+	for (const std::shared_ptr<Transform>& element : children)
 	{
 		element->updateWorldMatrix();
 	}

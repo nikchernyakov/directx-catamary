@@ -17,7 +17,8 @@ public:
 	void addChild(Transform* obj);
 	void setParent(Transform* parent);
 
-	Vector3 getPosition();
+	Vector3 getPosition() const;
+	Vector3 getWorldPosition() const;
 	void setPosition(Vector3 pos);
 	void addPosition(Vector3 pos);
 

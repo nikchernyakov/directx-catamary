@@ -74,8 +74,16 @@ void KatamariGame::init()
 	shader = new Shader(this, L"Shaders/Shader.fx", shaderInputElements, 2);
 	
 	plane = new BoxObject(this, shader, { 0, 0, 0 }, 
-		{ 1, 1, 1, 1 }, {1, 0.1, 1} );
+		{ 1, 1, 1, 1 }, {2, 0.1, 2} );
 
+	box1 = new BoxObject(this, shader, { -1, 1, 0 },
+		{ 1, 0, 1, 1 }, { 0.1, 0.1, 0.1 });
+
+	box2 = new BoxObject(this, shader, { -0.5, 1, -1 },
+		{ 1, 0, 1, 1 }, { 0.1, 0.1, 0.1 });
+	
+	box3 = new BoxObject(this, shader, { 1, 1, 0 },
+		{ 1, 0, 1, 1 }, { 0.1, 0.1, 0.1 });
 	
 	katamariSphere = new KatamariSphere(this, "Meshes/eyeball/eyeball_obj.obj", texturedShader);
 
@@ -106,7 +114,7 @@ void KatamariGame::update()
 	if (inputDevice->KeyIsPressed('A'))
 	{
 		katamariPlayer->transform->addPosition({ deltaTime, 0.0f, 0.0f });
-		katamariPlayer->transform->addLocalRotation({ 0, 0, -1 }, deltaTime);
+		katamariPlayer->transform->addLocalRotation({ 0, 0, 1 }, -deltaTime);
 		/*Vector3 axisResult = { 0, 0, -1 };
 		Vector3::Transform({ 0, 0, -1 }, katamariSphere->transform->updateWorldMatrix(), axisResult);*/
 		//katamariSphere->transform->addLocalRotation(axisResult, deltaTime);
@@ -116,7 +124,7 @@ void KatamariGame::update()
 	if (inputDevice->KeyIsPressed('S'))
 	{
 		katamariPlayer->transform->addPosition({ 0.0f, 0.0f, -deltaTime });
-		katamariPlayer->transform->addLocalRotation({ -1, 0, 0 }, deltaTime);
+		katamariPlayer->transform->addLocalRotation({ 1, 0, 0 }, -deltaTime);
 		//camera->translate({ 0.0f,0.0f,-deltaTime });
 	}
 	if (inputDevice->KeyIsPressed('D'))
@@ -128,11 +136,31 @@ void KatamariGame::update()
 
 	katamariSphere->update();
 	camera->update();
+
+	collisionCheck(box1);
+	collisionCheck(box2);
+	collisionCheck(box3);
+
+	Vector3 boxLocation = box1->transform->getWorldPosition();
+	std::cout << boxLocation.x << " " << boxLocation.y << " " << boxLocation.z << std::endl;
 }
 
 void KatamariGame::drawObjects()
 {
 	plane->draw();
+	box1->draw();
+	box2->draw();
+	box3->draw();
 	katamariSphere->draw();
 	
+}
+
+void KatamariGame::collisionCheck(GameObject* gameObject)
+{
+	if (gameObject->transform->parent == nullptr && katamariSphere->collider->Contains(gameObject->transform->getWorldPosition()))
+	{
+		const auto placementPos = gameObject->transform->getWorldPosition() - katamariSphere->transform->getWorldPosition();
+		gameObject->transform->setParent(katamariSphere->transform);
+		gameObject->transform->setPosition(placementPos);
+	}
 }

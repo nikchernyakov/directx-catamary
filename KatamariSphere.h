@@ -9,6 +9,8 @@ class KatamariSphere : public ModelObject
 public:
 	KatamariSphere(Game* game, const std::string& filePath, Shader* shader);
 
-	DirectX::BoundingSphere collider;
+	DirectX::BoundingSphere* collider;
+
+	void update() override;
 };
 
