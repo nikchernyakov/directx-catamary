@@ -5,6 +5,7 @@
 #include "KatamariSphere.h"
 #include "Engine/TexturedShader.h"
 #include "Engine/Shader.h"
+#include "SceneGameObject.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -20,6 +21,7 @@ protected:
 	void drawObjects();
 
 private:
+	SceneGameObject* katamariPlayer;
 	KatamariSphere* katamariSphere;
 	BoxObject* plane;
 

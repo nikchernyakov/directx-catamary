@@ -81,6 +81,9 @@
     <ClCompile Include="Engine\TexturedShader.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="SceneGameObject.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoxObject.h">
@@ -145,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="Engine\TexturedShader.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGameObject.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

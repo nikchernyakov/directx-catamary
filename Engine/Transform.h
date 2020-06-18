@@ -22,17 +22,18 @@ public:
 	void addPosition(Vector3 pos);
 
 	std::unique_ptr<Transform> parent = nullptr;
-	std::vector<std::shared_ptr<Transform>> child;
+	std::vector<std::shared_ptr<Transform>> children;
 
-	Quaternion rotation;
+	Quaternion rotation = Quaternion::Identity;
 
-	void rotate(Vector3 axis, float angle);
+	void addLocalRotation(Vector3 axis, float angle);
 
-	Matrix CreateWorldMatrix() const;
+	void updateWorldMatrix();
+	Matrix getWorldMatrix() const;
 
 private:
-	Vector3 m_position;
+	Vector3 m_position = Vector3::Zero;
 	Vector3 m_eulerAngles = Vector3::Zero;
-	Matrix world;
+	Matrix m_world = Matrix::Identity;
 };
 

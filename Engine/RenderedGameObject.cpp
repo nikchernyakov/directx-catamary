@@ -91,7 +91,7 @@ void RenderedGameObject::draw()
 	// Update Constant Buffer
 	const ConstantBuffer cb =
 	{
-		transform->CreateWorldMatrix(),
+		transform->getWorldMatrix(),
 		m_game->camera->getViewMatrix(),
 		m_game->camera->getProjectionMatrix(),
 	};

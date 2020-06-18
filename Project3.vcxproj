@@ -161,6 +161,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PyramidObject .cpp" />
     <ClCompile Include="KatamariGame.cpp" />
+    <ClCompile Include="SceneGameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Shader.fx">
@@ -194,6 +195,7 @@
     <ClInclude Include="KatamariSphere.h" />
     <ClInclude Include="PyramidObject.h" />
     <ClInclude Include="KatamariGame.h" />
+    <ClInclude Include="SceneGameObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

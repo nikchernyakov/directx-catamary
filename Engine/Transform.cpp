@@ -1,7 +1,8 @@
 #include "Transform.h"
 
-Transform::Transform(Vector3 pos) : m_position(pos)
+Transform::Transform(Vector3 pos)
 {
+	setPosition(pos);
 }
 
 Transform& Transform::getParent() const
@@ -11,17 +12,21 @@ Transform& Transform::getParent() const
 
 std::vector<std::shared_ptr<Transform>>& Transform::getChild()
 {
-	return child;
+	return children;
 }
 
 void Transform::addChild(Transform* obj)
 {
-	child.push_back(std::unique_ptr<Transform>(obj));
+	children.push_back(std::unique_ptr<Transform>(obj));
+	obj->parent = std::unique_ptr<Transform>(this);
+	updateWorldMatrix();
 }
 
 void Transform::setParent(Transform* p)
 {
 	parent = std::unique_ptr<Transform>(p);
+	p->children.push_back(std::unique_ptr<Transform>(this));
+	updateWorldMatrix();
 }
 
 Vector3 Transform::getPosition()
@@ -32,27 +37,39 @@ Vector3 Transform::getPosition()
 void Transform::setPosition(Vector3 pos)
 {
 	m_position = pos;
+	updateWorldMatrix();
 }
 
 void Transform::addPosition(Vector3 pos)
 {
 	m_position += pos;
+	updateWorldMatrix();
 }
 
-void Transform::rotate(const Vector3 axis, const float angle)
+void Transform::addLocalRotation(Vector3 axis, const float angle)
 {
-	m_eulerAngles = Vector3 { axis.x * angle + m_eulerAngles.x, axis.y * angle + m_eulerAngles.y, axis.z * angle + m_eulerAngles.z };
-	rotation = Quaternion::CreateFromYawPitchRoll(m_eulerAngles.y, m_eulerAngles.x, m_eulerAngles.z);
+	/*m_eulerAngles += axis * angle;
+	rotation = Quaternion::CreateFromYawPitchRoll(m_eulerAngles.y, m_eulerAngles.x, m_eulerAngles.z);*/
+	rotation = Quaternion::CreateFromRotationMatrix(Matrix::CreateFromAxisAngle(axis, angle) * m_world);
+	updateWorldMatrix();
 }
 
-Matrix Transform::CreateWorldMatrix() const
+void Transform::updateWorldMatrix()
 {
-	Matrix mat = Matrix::CreateFromQuaternion(rotation) * Matrix::CreateTranslation(m_position);
+	m_world = Matrix::CreateFromQuaternion(rotation) * Matrix::CreateTranslation(m_position);
 	
 	if (parent)
 	{
-		mat *= parent->CreateWorldMatrix();
+		m_world *= parent->getWorldMatrix();
 	}
 
-	return mat;
+	for (std::shared_ptr<Transform> element : children)
+	{
+		element->updateWorldMatrix();
+	}
+}
+
+Matrix Transform::getWorldMatrix() const
+{
+	return m_world;
 }
