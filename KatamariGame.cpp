@@ -85,7 +85,7 @@ void KatamariGame::init()
 	box3 = new BoxObject(this, shader, { 1, 1, 0 },
 		{ 1, 0, 1, 1 }, { 0.1, 0.1, 0.1 });
 	
-	katamariSphere = new KatamariSphere(this, "Meshes/eyeball/eyeball_obj.obj", texturedShader);
+	katamariSphere = new KatamariSphere(this, "Meshes/eyeball/eyeball-mod.obj", texturedShader);
 
 	katamariPlayer = new SceneGameObject(this);
 	katamariSphere->transform->setParent(katamariPlayer->transform);
