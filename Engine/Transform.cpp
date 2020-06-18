@@ -2,7 +2,7 @@
 
 Transform::Transform(Vector3 pos)
 {
-	setPosition(pos);
+	m_world = Matrix::CreateFromQuaternion(Quaternion::Identity) * Matrix::CreateTranslation(pos);
 }
 
 Transform& Transform::getParent() const
@@ -19,19 +19,19 @@ void Transform::addChild(Transform* obj)
 {
 	children.push_back(std::unique_ptr<Transform>(obj));
 	obj->parent = std::unique_ptr<Transform>(this);
-	updateWorldMatrix();
+	obj->m_world = getWorldMatrix() * obj->parent->getWorldMatrix().Invert();
 }
 
 void Transform::setParent(Transform* p)
 {
 	parent = std::unique_ptr<Transform>(p);
 	p->children.push_back(std::unique_ptr<Transform>(this));
-	updateWorldMatrix();
+	m_world = getWorldMatrix() * p->getWorldMatrix().Invert();
 }
 
 Vector3 Transform::getPosition() const
 {
-	return m_position;
+	return m_Translation.Translation();
 }
 
 Vector3 Transform::getWorldPosition() const
@@ -41,28 +41,29 @@ Vector3 Transform::getWorldPosition() const
 
 void Transform::setPosition(Vector3 pos)
 {
-	m_position = pos;
-	updateWorldMatrix();
+	m_world = getWorldMatrix() * m_Translation.Invert();
+	m_Translation = Matrix::CreateTranslation(pos);
+	m_world *= m_Translation;
 }
 
 void Transform::addPosition(Vector3 pos)
 {
-	m_position += pos;
-	updateWorldMatrix();
+	m_world = getWorldMatrix() * Matrix::CreateTranslation(pos);
+	m_Translation *= Matrix::CreateTranslation(pos);
 }
 
 void Transform::addLocalRotation(Vector3 axis, const float angle)
 {
-	/*m_eulerAngles += axis * angle;
-	rotation = Quaternion::CreateFromYawPitchRoll(m_eulerAngles.y, m_eulerAngles.x, m_eulerAngles.z);*/
+	/*rotation = Quaternion::CreateFromRotationMatrix(m_world * Matrix::CreateFromAxisAngle(axis, angle));
+	updateWorldMatrix();*/
 
-	rotation = Quaternion::CreateFromRotationMatrix(Matrix::CreateFromAxisAngle(axis, angle) * m_world);
-	updateWorldMatrix();
+	m_Rotation *= Matrix::CreateFromAxisAngle(axis, angle);
+	m_world = getWorldMatrix() * m_Translation.Invert() * Matrix::CreateFromAxisAngle(axis, angle) * m_Translation;
 }
 
-void Transform::updateWorldMatrix()
+/*void Transform::updateWorldMatrix()
 {
-	m_world = Matrix::CreateFromQuaternion(rotation) * Matrix::CreateTranslation(m_position);
+	
 	
 	if (parent)
 	{
@@ -73,9 +74,16 @@ void Transform::updateWorldMatrix()
 	{
 		element->updateWorldMatrix();
 	}
-}
+}*/
 
 Matrix Transform::getWorldMatrix() const
 {
-	return m_world;
+	auto result = m_world;
+
+	if (parent)
+	{
+		result *= parent->getWorldMatrix();
+	}
+	
+	return result;
 }

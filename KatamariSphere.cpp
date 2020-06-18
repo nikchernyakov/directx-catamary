@@ -11,5 +11,5 @@ void KatamariSphere::update()
 {
 	Vector3 worldPos = transform->getWorldPosition();
 	collider->Center = worldPos;
-	//std::cout << collider->Center.x << " " << collider->Center.y << " " << collider->Center.z << std::endl;
+	std::cout << collider->Center.x << " " << collider->Center.y << " " << collider->Center.z << std::endl;
 }

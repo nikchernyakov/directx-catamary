@@ -29,6 +29,6 @@ VS_DATA VSMain(float3 pos : POSITION, float4 color : COLOR, float2 texCord : TEX
 float4 PSMain(VS_DATA input) : SV_Target
 {
 	float4 finalColor = txDiffuse.Sample(samLinear, input.tex);
-	finalColor.a = 1;
+	finalColor.a = 1.0f;
 	return finalColor;
 }

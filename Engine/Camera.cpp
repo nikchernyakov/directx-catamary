@@ -15,7 +15,7 @@ Matrix Camera::getViewMatrix()
 {
 	Vector3 target = { direction };
 	Vector3::Transform(direction,
-		Matrix::CreateFromQuaternion(transform.rotation),
+		transform.m_Rotation,
 		target);
 	target += transform.getPosition();
 	Vector3 up = { 0, 1, 0 };
@@ -29,14 +29,14 @@ Matrix Camera::getProjectionMatrix() const
 
 void Camera::rotate(float dx, float dy)
 {
-	transform.rotation += Quaternion::CreateFromYawPitchRoll(dx * rotationSpeed, dy * rotationSpeed, 0);
+	//transform.rotation += Quaternion::CreateFromYawPitchRoll(dx * rotationSpeed, dy * rotationSpeed, 0);
 }
 
 void Camera::translate(Vector3 translation)
 {
 	XMStoreFloat3(&translation, DirectX::XMVector3Transform(
 		DirectX::XMLoadFloat3(&translation),
-		Matrix::CreateFromQuaternion(transform.rotation) *
+		transform.m_Rotation *
 		DirectX::XMMatrixScaling(moveSpeed, moveSpeed, moveSpeed)
 	));
 	transform.addPosition({

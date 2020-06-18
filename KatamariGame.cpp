@@ -141,8 +141,7 @@ void KatamariGame::update()
 	collisionCheck(box2);
 	collisionCheck(box3);
 
-	Vector3 boxLocation = box1->transform->getWorldPosition();
-	std::cout << boxLocation.x << " " << boxLocation.y << " " << boxLocation.z << std::endl;
+	
 }
 
 void KatamariGame::drawObjects()
@@ -159,8 +158,13 @@ void KatamariGame::collisionCheck(GameObject* gameObject)
 {
 	if (gameObject->transform->parent == nullptr && katamariSphere->collider->Contains(gameObject->transform->getWorldPosition()))
 	{
-		const auto placementPos = gameObject->transform->getWorldPosition() - katamariSphere->transform->getWorldPosition();
+		//const auto placementPos = gameObject->transform->getWorldPosition() - katamariSphere->transform->getWorldPosition();
 		gameObject->transform->setParent(katamariSphere->transform);
-		gameObject->transform->setPosition(placementPos);
+		//gameObject->transform->setPosition(placementPos);
+
+		//auto pos = 
+
+		// goMatrix * -1 Sphere = new matrix
+		// new matrix * Sphere
 	}
 }

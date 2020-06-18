@@ -25,16 +25,13 @@ public:
 	std::unique_ptr<Transform> parent = nullptr;
 	std::vector<std::shared_ptr<Transform>> children;
 
-	Quaternion rotation = Quaternion::Identity;
-
 	void addLocalRotation(Vector3 axis, float angle);
 
-	void updateWorldMatrix();
+	//void updateWorldMatrix();
 	Matrix getWorldMatrix() const;
-
-private:
-	Vector3 m_position = Vector3::Zero;
-	Vector3 m_eulerAngles = Vector3::Zero;
 	Matrix m_world = Matrix::Identity;
+	Matrix m_Translation = Matrix::Identity;
+	Matrix m_Rotation = Matrix::Identity;
+	Matrix m_Scale = Matrix::Identity;
 };
 
