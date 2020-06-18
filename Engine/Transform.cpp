@@ -19,14 +19,14 @@ void Transform::addChild(Transform* obj)
 {
 	children.push_back(std::unique_ptr<Transform>(obj));
 	obj->parent = std::unique_ptr<Transform>(this);
-	obj->m_world = getWorldMatrix() * obj->parent->getWorldMatrix().Invert();
+	obj->m_world *= getWorldMatrix().Invert();
 }
 
 void Transform::setParent(Transform* p)
 {
 	parent = std::unique_ptr<Transform>(p);
 	p->children.push_back(std::unique_ptr<Transform>(this));
-	m_world = getWorldMatrix() * p->getWorldMatrix().Invert();
+	m_world *= p->getWorldMatrix().Invert();
 }
 
 Vector3 Transform::getPosition() const
@@ -36,7 +36,7 @@ Vector3 Transform::getPosition() const
 
 Vector3 Transform::getWorldPosition() const
 {
-	return m_world.Translation();
+	return getWorldMatrix().Translation();
 }
 
 void Transform::setPosition(Vector3 pos)
@@ -63,8 +63,6 @@ void Transform::addLocalRotation(Vector3 axis, const float angle)
 
 /*void Transform::updateWorldMatrix()
 {
-	
-	
 	if (parent)
 	{
 		m_world *= parent->getWorldMatrix();
