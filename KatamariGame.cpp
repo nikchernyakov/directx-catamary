@@ -150,14 +150,16 @@ void KatamariGame::drawObjects()
 {
 	// Direct 2D draw
 	pRenderTarget2D->BeginDraw();
-	auto rec1 = D2D1::RectF(0.0f, 0, 500, 400);
-	auto rec2 = D2D1::RectF(0.0f, 42, 500, 400);
+	auto rec1 = D2D1::RectF(0.0f, 0.0f, 400, 400);
+	auto rec2 = D2D1::RectF(330.0f, 0.0f, 400, 400);
 	pSolidBrush->SetColor(D2D1::ColorF(D2D1::ColorF::WhiteSmoke));
-	std::wstring header = L"Collected objects: ";
+	std::wstring header = L"Collected objects:";
+	std::wstring count = std::to_wstring(collectedObjectCount);
 	/*pRenderTarget2D->DrawTextW(StringHelper::StringToWide(fpsStirng).c_str(), fpsStirng.length(), pDTextFormat.Get(), &rec1, pSolidBrush.Get());
 	pRenderTarget2D->DrawTextW(StringHelper::StringToWide(attachedCounterString).c_str(), attachedCounterString.length(), pDTextFormat.Get(), &rec2, pSolidBrush.Get());*/
 	
 	pRenderTarget2D->DrawTextW(header.c_str(), header.length(), pDTextFormat, &rec1, pSolidBrush);
+	pRenderTarget2D->DrawTextW(count.c_str(), count.length(), pDTextFormat, &rec2, pSolidBrush);
 	pRenderTarget2D->EndDraw();
 
 	
@@ -173,14 +175,8 @@ void KatamariGame::collisionCheck(GameObject* gameObject)
 {
 	if (gameObject->transform->parent == nullptr && katamariSphere->collider->Contains(gameObject->transform->getWorldPosition()))
 	{
-		//const auto placementPos = gameObject->transform->getWorldPosition() - katamariSphere->transform->getWorldPosition();
 		gameObject->transform->setParent(katamariSphere->transform);
-		//gameObject->transform->setPosition(placementPos);
-
-		//auto pos = 
-
-		// goMatrix * -1 Sphere = new matrix
-		// new matrix * Sphere
+		collectedObjectCount++;
 	}
 }
 

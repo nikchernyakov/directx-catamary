@@ -26,13 +26,15 @@ public:
 	void init() override;
 protected:
 	void update() override;
-	void drawObjects();
+	void drawObjects() override;
 	void collisionCheck(GameObject* gameObject);
 
 	void initDirect2D();
 
 private:
 
+	int collectedObjectCount = 0;
+	
 	//Direct2d
 	ID2D1Factory* pD2D1Factory;
 	ID2D1SolidColorBrush* pSolidBrush;
