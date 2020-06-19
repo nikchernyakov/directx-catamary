@@ -7,7 +7,7 @@ using namespace DirectX::SimpleMath;
 
 KatamariGame::KatamariGame() : Game()
 {
-	
+		
 }
 
 KatamariGame::~KatamariGame()
@@ -16,6 +16,8 @@ KatamariGame::~KatamariGame()
 
 void KatamariGame::init()
 {
+	initDirect2D();
+	
 	texture = new Texture(this, L"Meshes/eyeball/eyes_blue.jpg");
 
 	D3D11_INPUT_ELEMENT_DESC texturedShaderInputElements[] = {
@@ -146,12 +148,25 @@ void KatamariGame::update()
 
 void KatamariGame::drawObjects()
 {
+	// Direct 2D draw
+	pRenderTarget2D->BeginDraw();
+	auto rec1 = D2D1::RectF(0.0f, 0, 500, 400);
+	auto rec2 = D2D1::RectF(0.0f, 42, 500, 400);
+	pSolidBrush->SetColor(D2D1::ColorF(D2D1::ColorF::WhiteSmoke));
+	std::wstring header = L"Collected objects: ";
+	/*pRenderTarget2D->DrawTextW(StringHelper::StringToWide(fpsStirng).c_str(), fpsStirng.length(), pDTextFormat.Get(), &rec1, pSolidBrush.Get());
+	pRenderTarget2D->DrawTextW(StringHelper::StringToWide(attachedCounterString).c_str(), attachedCounterString.length(), pDTextFormat.Get(), &rec2, pSolidBrush.Get());*/
+	
+	pRenderTarget2D->DrawTextW(header.c_str(), header.length(), pDTextFormat, &rec1, pSolidBrush);
+	pRenderTarget2D->EndDraw();
+
+	
+	// Draw objects 
 	plane->draw();
 	box1->draw();
 	box2->draw();
 	box3->draw();
 	katamariSphere->draw();
-	
 }
 
 void KatamariGame::collisionCheck(GameObject* gameObject)
@@ -167,4 +182,51 @@ void KatamariGame::collisionCheck(GameObject* gameObject)
 		// goMatrix * -1 Sphere = new matrix
 		// new matrix * Sphere
 	}
+}
+
+void KatamariGame::initDirect2D()
+{
+	HRESULT hr;
+
+	hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pD2D1Factory);
+
+	hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED,
+		__uuidof(IDWriteFactory), 
+		reinterpret_cast<IUnknown**>(&pDWriteFactory)
+	);
+
+	ID3D11Resource* res;
+	rtv->GetResource(&res);
+
+	IDXGISurface* surface;
+	hr = res->QueryInterface(__uuidof(IDXGISurface), reinterpret_cast<void**>(&surface));
+
+	hr = pD2D1Factory->CreateDxgiSurfaceRenderTarget(
+		surface,
+		D2D1_RENDER_TARGET_PROPERTIES{
+			D2D1_RENDER_TARGET_TYPE_HARDWARE,
+			D2D1_PIXEL_FORMAT {
+				/*gammaCorrection ? DXGI_FORMAT_B8G8R8A8_UNORM_SRGB : */DXGI_FORMAT_R8G8B8A8_UNORM,
+				D2D1_ALPHA_MODE_PREMULTIPLIED
+			},
+			static_cast<FLOAT>(96),
+			static_cast<FLOAT>(96)
+		},
+		&pRenderTarget2D
+	);
+	res->Release();
+	surface->Release();
+
+	hr = pRenderTarget2D->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &pSolidBrush);
+
+	hr = pDWriteFactory->CreateTextFormat(
+		L"arial",
+		NULL,
+		DWRITE_FONT_WEIGHT_REGULAR,
+		DWRITE_FONT_STYLE_NORMAL,
+		DWRITE_FONT_STRETCH_NORMAL,
+		40.0f,
+		L"en-us",
+		&pDTextFormat
+	);
 }
