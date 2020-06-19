@@ -155,8 +155,6 @@ void KatamariGame::drawObjects()
 	pSolidBrush->SetColor(D2D1::ColorF(D2D1::ColorF::WhiteSmoke));
 	std::wstring header = L"Collected objects:";
 	std::wstring count = std::to_wstring(collectedObjectCount);
-	/*pRenderTarget2D->DrawTextW(StringHelper::StringToWide(fpsStirng).c_str(), fpsStirng.length(), pDTextFormat.Get(), &rec1, pSolidBrush.Get());
-	pRenderTarget2D->DrawTextW(StringHelper::StringToWide(attachedCounterString).c_str(), attachedCounterString.length(), pDTextFormat.Get(), &rec2, pSolidBrush.Get());*/
 	
 	pRenderTarget2D->DrawTextW(header.c_str(), header.length(), pDTextFormat, &rec1, pSolidBrush);
 	pRenderTarget2D->DrawTextW(count.c_str(), count.length(), pDTextFormat, &rec2, pSolidBrush);
