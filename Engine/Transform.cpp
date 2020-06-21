@@ -2,7 +2,7 @@
 
 Transform::Transform(Vector3 pos)
 {
-	m_world = Matrix::CreateFromQuaternion(Quaternion::Identity) * Matrix::CreateTranslation(pos);
+	m_transformMatrix = Matrix::CreateFromQuaternion(Quaternion::Identity) * Matrix::CreateTranslation(pos);
 }
 
 Transform& Transform::getParent() const
@@ -19,14 +19,14 @@ void Transform::addChild(Transform* obj)
 {
 	children.push_back(std::unique_ptr<Transform>(obj));
 	obj->parent = std::unique_ptr<Transform>(this);
-	obj->m_world *= getWorldMatrix().Invert();
+	obj->m_transformMatrix *= getWorldMatrix().Invert();
 }
 
 void Transform::setParent(Transform* p)
 {
 	parent = std::unique_ptr<Transform>(p);
 	p->children.push_back(std::unique_ptr<Transform>(this));
-	m_world *= p->getWorldMatrix().Invert();
+	m_transformMatrix *= p->getWorldMatrix().Invert();
 }
 
 Vector3 Transform::getPosition() const
@@ -41,26 +41,26 @@ Vector3 Transform::getWorldPosition() const
 
 void Transform::setPosition(Vector3 pos)
 {
-	m_world = getWorldMatrix() * m_Translation.Invert();
+	m_transformMatrix = getWorldMatrix() * m_Translation.Invert();
 	m_Translation = Matrix::CreateTranslation(pos);
-	m_world *= m_Translation;
+	m_transformMatrix *= m_Translation;
 }
 
 void Transform::addPosition(Vector3 pos)
 {
-	m_world = getWorldMatrix() * Matrix::CreateTranslation(pos);
+	m_transformMatrix = getWorldMatrix() * Matrix::CreateTranslation(pos);
 	m_Translation *= Matrix::CreateTranslation(pos);
 }
 
-void Transform::addLocalRotation(Vector3 axis, const float angle)
+void Transform::addWorldRotation(Vector3 axis, const float angle)
 {
 	m_Rotation *= Matrix::CreateFromAxisAngle(axis, angle);
-	m_world = getWorldMatrix() * m_Translation.Invert() * Matrix::CreateFromAxisAngle(axis, angle) * m_Translation;
+	m_transformMatrix = getWorldMatrix() * m_Translation.Invert() * Matrix::CreateFromAxisAngle(axis, angle) * m_Translation;
 }
 
 Matrix Transform::getWorldMatrix() const
 {
-	auto result = m_world;
+	auto result = m_transformMatrix;
 
 	if (parent)
 	{

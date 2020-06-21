@@ -25,10 +25,10 @@ public:
 	std::unique_ptr<Transform> parent = nullptr;
 	std::vector<std::shared_ptr<Transform>> children;
 
-	void addLocalRotation(Vector3 axis, float angle);
+	void addWorldRotation(Vector3 axis, float angle);
 
 	Matrix getWorldMatrix() const;
-	Matrix m_world = Matrix::Identity;
+	Matrix m_transformMatrix = Matrix::Identity;
 	Matrix m_Translation = Matrix::Identity;
 	Matrix m_Rotation = Matrix::Identity;
 	Matrix m_Scale = Matrix::Identity;

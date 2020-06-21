@@ -119,36 +119,36 @@ void KatamariGame::update()
 	
 	/*while (const auto delta = mouse->ReadRawDelta())
 	{
-		camera->addLocalRotation((float)delta->x * -deltaTime, (float)delta->y * deltaTime);
+		camera->addWorldRotation((float)delta->x * -deltaTime, (float)delta->y * deltaTime);
 	}*/
 
 	if (inputDevice->KeyIsPressed('W'))
 	{
 		katamariPlayer->transform->addPosition({ 0.0f, 0.0f, deltaTime });
-		katamariPlayer->transform->addLocalRotation({ 1, 0, 0 }, deltaTime);
+		katamariPlayer->transform->addWorldRotation({ 1, 0, 0 }, deltaTime);
 		//katamariPlayer->transform->rotation
 		//camera->translate({ 0.0f,0.0f,deltaTime });
 	}
 	if (inputDevice->KeyIsPressed('A'))
 	{
 		katamariPlayer->transform->addPosition({ deltaTime, 0.0f, 0.0f });
-		katamariPlayer->transform->addLocalRotation({ 0, 0, 1 }, -deltaTime);
+		katamariPlayer->transform->addWorldRotation({ 0, 0, 1 }, -deltaTime);
 		/*Vector3 axisResult = { 0, 0, -1 };
 		Vector3::Transform({ 0, 0, -1 }, katamariSphere->transform->updateWorldMatrix(), axisResult);*/
-		//katamariSphere->transform->addLocalRotation(axisResult, deltaTime);
+		//katamariSphere->transform->addWorldRotation(axisResult, deltaTime);
 		//katamariSphere->transform->rotateAlongAxis(katamariPlayer->transform->GetZVector(), deltaTime);
 		//camera->translate({ deltaTime,0.0f,0.0f });
 	}
 	if (inputDevice->KeyIsPressed('S'))
 	{
 		katamariPlayer->transform->addPosition({ 0.0f, 0.0f, -deltaTime });
-		katamariPlayer->transform->addLocalRotation({ 1, 0, 0 }, -deltaTime);
+		katamariPlayer->transform->addWorldRotation({ 1, 0, 0 }, -deltaTime);
 		//camera->translate({ 0.0f,0.0f,-deltaTime });
 	}
 	if (inputDevice->KeyIsPressed('D'))
 	{
 		katamariPlayer->transform->addPosition({ -deltaTime, 0.0f, 0.0f });
-		katamariPlayer->transform->addLocalRotation({ 0, 0, 1 }, deltaTime);
+		katamariPlayer->transform->addWorldRotation({ 0, 0, 1 }, deltaTime);
 		//camera->translate({ -deltaTime,0.0f,0.0f });
 	}
 
