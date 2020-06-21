@@ -29,9 +29,22 @@ void Transform::setParent(Transform* p)
 	m_transformMatrix *= p->getWorldMatrix().Invert();
 }
 
-Vector3 Transform::getPosition() const
+Vector3 Transform::getLocalPosition() const
 {
 	return m_Translation.Translation();
+}
+
+void Transform::setLocalPosition(Vector3 pos)
+{
+	m_transformMatrix = m_Translation.Invert() * m_transformMatrix;
+	m_Translation = Matrix::CreateTranslation(pos);
+	m_transformMatrix *= m_Translation;
+}
+
+void Transform::addLocalPosition(Vector3 pos)
+{
+	m_transformMatrix = Matrix::CreateTranslation(pos) * m_transformMatrix;
+	m_Translation *= Matrix::CreateTranslation(pos);
 }
 
 Vector3 Transform::getWorldPosition() const
@@ -39,23 +52,29 @@ Vector3 Transform::getWorldPosition() const
 	return getWorldMatrix().Translation();
 }
 
-void Transform::setPosition(Vector3 pos)
+void Transform::setWorldPosition(Vector3 pos)
 {
-	m_transformMatrix = getWorldMatrix() * m_Translation.Invert();
+	m_transformMatrix = m_transformMatrix * m_Translation.Invert();
 	m_Translation = Matrix::CreateTranslation(pos);
 	m_transformMatrix *= m_Translation;
 }
 
-void Transform::addPosition(Vector3 pos)
+void Transform::addWorldPosition(Vector3 pos)
 {
-	m_transformMatrix = getWorldMatrix() * Matrix::CreateTranslation(pos);
+	m_transformMatrix = m_transformMatrix * Matrix::CreateTranslation(pos);
 	m_Translation *= Matrix::CreateTranslation(pos);
+}
+
+void Transform::addLocalRotation(Vector3 axis, float angle)
+{
+	m_Rotation *= Matrix::CreateFromAxisAngle(axis, angle);
+	m_transformMatrix = Matrix::CreateFromAxisAngle(axis, angle) * m_transformMatrix * m_Translation.Invert() * m_Translation;
 }
 
 void Transform::addWorldRotation(Vector3 axis, const float angle)
 {
 	m_Rotation *= Matrix::CreateFromAxisAngle(axis, angle);
-	m_transformMatrix = getWorldMatrix() * m_Translation.Invert() * Matrix::CreateFromAxisAngle(axis, angle) * m_Translation;
+	m_transformMatrix = m_transformMatrix * m_Translation.Invert() * Matrix::CreateFromAxisAngle(axis, angle) * m_Translation;
 }
 
 Matrix Transform::getWorldMatrix() const

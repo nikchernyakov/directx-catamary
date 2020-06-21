@@ -24,7 +24,7 @@ protected:
 
 	Vector3 direction;
 
-	float rotationSpeed = 0.001;
+	float rotationSpeed = 0.1;
 	float moveSpeed = 5;
 	
 	Matrix projectionMatrix;

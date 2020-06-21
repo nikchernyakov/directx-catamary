@@ -17,14 +17,18 @@ public:
 	void addChild(Transform* obj);
 	void setParent(Transform* parent);
 
-	Vector3 getPosition() const;
+	Vector3 getLocalPosition() const;
+	void setLocalPosition(Vector3 pos);
+	void addLocalPosition(Vector3 pos);
+	
 	Vector3 getWorldPosition() const;
-	void setPosition(Vector3 pos);
-	void addPosition(Vector3 pos);
+	void setWorldPosition(Vector3 pos);
+	void addWorldPosition(Vector3 pos);
 
 	std::unique_ptr<Transform> parent = nullptr;
 	std::vector<std::shared_ptr<Transform>> children;
 
+	void addLocalRotation(Vector3 axis, float angle);
 	void addWorldRotation(Vector3 axis, float angle);
 
 	Matrix getWorldMatrix() const;
