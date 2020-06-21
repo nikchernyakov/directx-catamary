@@ -10,6 +10,7 @@ cbuffer CBuf : register(b0)
 
 cbuffer LightBuffer : register(b1)
 {
+	float4 ambientColor;
 	float4 diffuseColor;
 	float3 lightDirection;
 	float padding;
@@ -58,14 +59,23 @@ float4 PSMain(PS_DATA input) : SV_Target
 
 	textureColor = txDiffuse.Sample(samLinear, input.tex);
 
+	// Set the default output color to the ambient light value for all pixels.
+	finalColor = ambientColor;
+
 	// Invert the light direction for calculations.
 	lightDir = -lightDirection;
 
 	// Calculate the amount of light on this pixel.
 	lightIntensity = saturate(dot(input.normal, lightDir));
 
-	// Determine the final amount of diffuse color based on the diffuse color combined with the light intensity.
-	finalColor = saturate(diffuseColor * lightIntensity);
+	if(lightIntensity > 0.0f)
+	{
+		// Determine the final diffuse color based on the diffuse color and the amount of light intensity.
+		finalColor += (diffuseColor * lightIntensity);
+	}
+
+	// Saturate the final light color.
+	finalColor = saturate(finalColor);
 
 	// Multiply the texture pixel and the final diffuse color to get the final pixel color result.
 	finalColor = finalColor * textureColor;
