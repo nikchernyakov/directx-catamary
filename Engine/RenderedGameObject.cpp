@@ -7,6 +7,7 @@
 #include <iostream>
 #include <WICTextureLoader.h>
 #include "LightBuffer.h"
+#include "CameraBuffer.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -71,17 +72,22 @@ void RenderedGameObject::init()
 	hr = m_game->device->CreateBuffer(&cbd, NULL, &pConstantBuffer);
 
 	D3D11_BUFFER_DESC lightBufferDesc;
-	// Setup the description of the light dynamic constant buffer that is in the pixel shader.
-	// Note that ByteWidth always needs to be a multiple of 16 if using D3D11_BIND_CONSTANT_BUFFER or CreateBuffer will fail.
 	lightBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	lightBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	lightBufferDesc.CPUAccessFlags = 0u;
 	lightBufferDesc.MiscFlags = 0;
 	lightBufferDesc.ByteWidth = sizeof(LightBuffer);
 	lightBufferDesc.StructureByteStride = 0;
-
-	// Create the constant buffer pointer so we can access the vertex shader constant buffer from within this class.
 	hr = m_game->device->CreateBuffer(&lightBufferDesc, NULL, &pLightBuffer);
+
+	D3D11_BUFFER_DESC cameraBufferDesc;
+	cameraBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	cameraBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	cameraBufferDesc.CPUAccessFlags = 0u;
+	cameraBufferDesc.MiscFlags = 0;
+	cameraBufferDesc.ByteWidth = sizeof(CameraBuffer);
+	cameraBufferDesc.StructureByteStride = 0;
+	hr = m_game->device->CreateBuffer(&cameraBufferDesc, NULL, &pCameraBuffer);
 }
 
 void RenderedGameObject::update()
@@ -117,10 +123,20 @@ void RenderedGameObject::draw()
 		Vector4{0.15f, 0.15f, 0.15f, 1.0f},
 		Vector4{1.0f, 1.0f, 1.0f, 1.0f},
 		Vector3{0.0f, -1.0f, 0.0f},
-		0.0f
+		32.0f,
+		{1.0f, 1.0f, 1.0f, 1.0f }
 	};
 	m_game->context->UpdateSubresource(pLightBuffer.Get(), 0, NULL, &lb, 0, 0);
 	m_game->context->PSSetConstantBuffers(1u, 1u, pLightBuffer.GetAddressOf());
+
+	// Update Constant Buffer
+	const CameraBuffer cameraBuffer =
+	{
+		m_game->camera->transform.getWorldPosition(),
+		0.0f
+	};
+	m_game->context->UpdateSubresource(pCameraBuffer.Get(), 0, NULL, &cameraBuffer, 0, 0);
+	m_game->context->VSSetConstantBuffers(2u, 1u, pCameraBuffer.GetAddressOf());
 
 	m_game->context->DrawIndexed(indicesCount, 0, 0);
 }

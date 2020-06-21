@@ -155,6 +155,9 @@
     <ClInclude Include="Engine\LightBuffer.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\CameraBuffer.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\ShaderTextured.fx">

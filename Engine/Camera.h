@@ -19,9 +19,9 @@ public:
 	void translate(Vector3 translation);
 	virtual void update();
 	
-protected:
 	Transform transform;
-
+	
+protected:
 	Vector3 direction;
 
 	float rotationSpeed = 0.1;

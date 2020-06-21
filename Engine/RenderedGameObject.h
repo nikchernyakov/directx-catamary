@@ -26,6 +26,7 @@ protected:
 	
 	ComPtr<ID3D11Buffer> pConstantBuffer;
 	ComPtr<ID3D11Buffer> pLightBuffer;
+	ComPtr<ID3D11Buffer> pCameraBuffer;
 	D3D11_SUBRESOURCE_DATA* csd;
 	
 	Vector4 m_color;
