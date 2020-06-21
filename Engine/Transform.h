@@ -27,7 +27,6 @@ public:
 
 	void addLocalRotation(Vector3 axis, float angle);
 
-	//void updateWorldMatrix();
 	Matrix getWorldMatrix() const;
 	Matrix m_world = Matrix::Identity;
 	Matrix m_Translation = Matrix::Identity;

@@ -54,25 +54,9 @@ void Transform::addPosition(Vector3 pos)
 
 void Transform::addLocalRotation(Vector3 axis, const float angle)
 {
-	/*rotation = Quaternion::CreateFromRotationMatrix(m_world * Matrix::CreateFromAxisAngle(axis, angle));
-	updateWorldMatrix();*/
-
 	m_Rotation *= Matrix::CreateFromAxisAngle(axis, angle);
 	m_world = getWorldMatrix() * m_Translation.Invert() * Matrix::CreateFromAxisAngle(axis, angle) * m_Translation;
 }
-
-/*void Transform::updateWorldMatrix()
-{
-	if (parent)
-	{
-		m_world *= parent->getWorldMatrix();
-	}
-
-	for (const std::shared_ptr<Transform>& element : children)
-	{
-		element->updateWorldMatrix();
-	}
-}*/
 
 Matrix Transform::getWorldMatrix() const
 {
