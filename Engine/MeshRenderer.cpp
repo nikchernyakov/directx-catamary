@@ -46,13 +46,9 @@ MeshObject* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene, Shader
     {
         Vertex vertex{
         	Vector3{mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z},
-        	Vector4{0, 1, 0, 1}
+        	Vector4{0, 1, 0, 1},
+        	Vector3{mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z}
         };
-
-        
-        /*vertex.normal.x = mesh->mNormals[i].x;
-        vertex.normal.y = mesh->mNormals[i].y;
-        vertex.normal.z = mesh->mNormals[i].z;*/
 
         if (mesh->mTextureCoords[0])
         {

@@ -25,6 +25,7 @@ protected:
 	Shader* m_shader;
 	
 	ComPtr<ID3D11Buffer> pConstantBuffer;
+	ComPtr<ID3D11Buffer> pLightBuffer;
 	D3D11_SUBRESOURCE_DATA* csd;
 	
 	Vector4 m_color;

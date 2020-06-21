@@ -33,7 +33,16 @@ void KatamariGame::init()
 			0,
 			DXGI_FORMAT_R32G32B32A32_FLOAT,
 			0,
-			12,
+			D3D11_APPEND_ALIGNED_ELEMENT,
+			D3D11_INPUT_PER_VERTEX_DATA,
+			0
+		},
+		D3D11_INPUT_ELEMENT_DESC {
+			"NORMAL",
+			0,
+			DXGI_FORMAT_R32G32B32_FLOAT,
+			0,
+			D3D11_APPEND_ALIGNED_ELEMENT,
 			D3D11_INPUT_PER_VERTEX_DATA,
 			0
 		},
@@ -48,7 +57,7 @@ void KatamariGame::init()
 		},
 	};
 
-	texturedShader = new TexturedShader(this, L"Shaders/ShaderTextured.fx", texturedShaderInputElements, 3, texture);
+	texturedShader = new TexturedShader(this, L"Shaders/ShaderTextured.fx", texturedShaderInputElements, 4, texture);
 
 	D3D11_INPUT_ELEMENT_DESC shaderInputElements[] = {
 		D3D11_INPUT_ELEMENT_DESC {
@@ -65,13 +74,22 @@ void KatamariGame::init()
 			0,
 			DXGI_FORMAT_R32G32B32A32_FLOAT,
 			0,
-			12,
+			D3D11_APPEND_ALIGNED_ELEMENT,
+			D3D11_INPUT_PER_VERTEX_DATA,
+			0
+		},
+		D3D11_INPUT_ELEMENT_DESC {
+			"NORMAL",
+			0,
+			DXGI_FORMAT_R32G32B32_FLOAT,
+			0,
+			D3D11_APPEND_ALIGNED_ELEMENT,
 			D3D11_INPUT_PER_VERTEX_DATA,
 			0
 		},
 	};
 
-	shader = new Shader(this, L"Shaders/Shader.fx", shaderInputElements, 2);
+	shader = new Shader(this, L"Shaders/Shader.fx", shaderInputElements, 3);
 	
 	plane = new BoxObject(this, shader, { 0, 0, 0 }, 
 		{ 1, 1, 1, 1 }, {2, 0.1, 2} );

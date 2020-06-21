@@ -6,6 +6,7 @@
 #include "ConstantBuffer.h"
 #include <iostream>
 #include <WICTextureLoader.h>
+#include "LightBuffer.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -68,6 +69,19 @@ void RenderedGameObject::init()
 	cbd.ByteWidth = sizeof(ConstantBuffer);
 	cbd.StructureByteStride = 0u;
 	hr = m_game->device->CreateBuffer(&cbd, NULL, &pConstantBuffer);
+
+	D3D11_BUFFER_DESC lightBufferDesc;
+	// Setup the description of the light dynamic constant buffer that is in the pixel shader.
+	// Note that ByteWidth always needs to be a multiple of 16 if using D3D11_BIND_CONSTANT_BUFFER or CreateBuffer will fail.
+	lightBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	lightBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	lightBufferDesc.CPUAccessFlags = 0u;
+	lightBufferDesc.MiscFlags = 0;
+	lightBufferDesc.ByteWidth = sizeof(LightBuffer);
+	lightBufferDesc.StructureByteStride = 0;
+
+	// Create the constant buffer pointer so we can access the vertex shader constant buffer from within this class.
+	hr = m_game->device->CreateBuffer(&lightBufferDesc, NULL, &pLightBuffer);
 }
 
 void RenderedGameObject::update()
@@ -97,6 +111,15 @@ void RenderedGameObject::draw()
 	};
 	m_game->context->UpdateSubresource(pConstantBuffer.Get(), 0, NULL, &cb, 0, 0);
 	m_game->context->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+
+	const LightBuffer lb =
+	{
+		Vector4{1.0f, 1.0f, 1.0f, 1.0f},
+		Vector3{0.0f, -1.0f, 0.0f},
+		0.0f
+	};
+	m_game->context->UpdateSubresource(pLightBuffer.Get(), 0, NULL, &lb, 0, 0);
+	m_game->context->PSSetConstantBuffers(1u, 1u, pLightBuffer.GetAddressOf());
 
 	m_game->context->DrawIndexed(indicesCount, 0, 0);
 }

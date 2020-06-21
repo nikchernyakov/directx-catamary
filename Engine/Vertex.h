@@ -9,11 +9,11 @@ class Vertex
 public:
 	Vector3 pos;
 	Vector4 color;
+	Vector3 normal;
 	Vector2 texCord;
-	//Vector3 normal;
 public:
 	Vertex() = default;
-	Vertex(Vector3 p, Vector4 c) : pos(p), color(c) {
+	Vertex(Vector3 p, Vector4 c, Vector3 n) : pos(p), color(c), normal(n) {
 		
 	}
 	Vertex operator+(Vertex const v) {
