@@ -39,6 +39,7 @@ struct PS_DATA
 	float4 pos : SV_POSITION;
 	float4 color : COLOR;
 	float3 normal : NORMAL;
+	float4 worldPosition : POSITION;
 	float3 viewDirection : TEXCOORD0;
 	float4 lightViewPosition : TEXCOORD1;
 	float3 lightPos : TEXCOORD2;
@@ -52,10 +53,14 @@ PS_DATA VSMain(VS_DATA input)
 	output.pos = mul(output.pos, View);
 	output.pos = mul(output.pos, Projection);
 
+	// Calculate the position of the vertex in the world.
+	output.worldPosition = mul(float4(input.pos, 1.0f), World);
+
 	// Calculate the position of the vertice as viewed by the light source.
 	output.lightViewPosition = mul(float4(input.pos, 1.0f), World);
 	output.lightViewPosition = mul(output.lightViewPosition, lightView);
 	output.lightViewPosition = mul(output.lightViewPosition, lightProjection);
+	output.lightViewPosition = output.lightViewPosition / output.lightViewPosition.w;
 
 	output.color = input.color;
 
@@ -63,15 +68,12 @@ PS_DATA VSMain(VS_DATA input)
 	output.normal = mul(float4(input.normal, 0.0f), World).xyz;
 	output.normal = normalize(output.normal);
 
-	// Calculate the position of the vertex in the world.
-	float4 worldPosition = mul(float4(input.pos, 1.0f), World);
-
 	// Determine the viewing direction based on the position of the camera and the position of the vertex in the world.
-	output.viewDirection = cameraPosition.xyz - worldPosition.xyz;
+	output.viewDirection = cameraPosition.xyz - output.worldPosition.xyz;
 	output.viewDirection = normalize(output.viewDirection);
 
 	// Determine the light position based on the position of the light and the position of the vertex in the world.
-	output.lightPos = lightPosition.xyz - worldPosition.xyz;
+	output.lightPos = lightPosition.xyz - output.worldPosition.xyz;
 	output.lightPos = normalize(output.lightPos);
 
 	return output;
@@ -108,13 +110,13 @@ float4 PSMain(PS_DATA input) : SV_Target
 
 		// Subtract the bias from the lightDepthValue.
 		lightDepthValue = lightDepthValue - bias;
-
+		
 		// Compare the depth of the shadow map value and the depth of the light to determine whether to shadow or to light this pixel.
 		// If the light is in front of the object then light the pixel, if not then shadow this pixel since an object (occluder) is casting a shadow on it.
 		if (lightDepthValue < depthValue)
 		{
 			// Calculate the amount of light on this pixel.
-			// float lightIntensity = saturate(dot(input.normal, lightDir));
+			//float lightIntensity = saturate(dot(input.normal, lightDir));
 			float lightIntensity = saturate(dot(input.normal, input.lightPos));
 			if (lightIntensity > 0.0f)
 			{
@@ -124,9 +126,12 @@ float4 PSMain(PS_DATA input) : SV_Target
 				finalColor = saturate(finalColor);
 
 				// Calculate the reflection vector based on the light intensity, normal vector, and light direction.
-				float3 reflection = normalize(2 * lightIntensity * input.normal - lightDir);
+				//float3 reflection = normalize(2 * lightIntensity * input.normal - lightDir);
 				// Determine the amount of specular light based on the reflection vector, viewing direction, and specular power.
-				specular = pow(saturate(dot(reflection, input.viewDirection)), specularPower);
+				//specular = pow(saturate(dot(reflection, input.viewDirection)), specularPower);
+
+				// Add the specular component last to the output color.
+				//finalColor = saturate(finalColor + specular);
 			}
 		}
 	}
@@ -134,9 +139,6 @@ float4 PSMain(PS_DATA input) : SV_Target
 	// Multiply the texture pixel and the final diffuse color to get the final pixel color result.
 	float4 textureColor = input.color;
 	finalColor = finalColor * textureColor;
-
-	// Add the specular component last to the output color.
-	finalColor = saturate(finalColor + specular);
 
 	return finalColor;
 }

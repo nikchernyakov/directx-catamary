@@ -1,19 +1,20 @@
 #include "Game.h"
 #include "Light.h"
 
-Light::Light(Game* game, Vector3 position, Vector3 direction) : direction(direction)
+Light::Light(Game* game, Vector3 position, Vector3 dir) : direction(dir)
 {
+	direction.Normalize();
 	transform.setWorldPosition(position);
-
-	projectionMatrix = Matrix::CreatePerspectiveFieldOfView(
-		DirectX::XM_PIDIV2, 1.0f, 1.0f, 100.0f);
+	
+	projectionMatrix = Matrix::CreateOrthographic(
+		120.0f, static_cast<float>(game->screenWidth) / static_cast<float>(game->screenHeight),
+		0.1f, 100.0f);
 }
 
 Matrix Light::getViewMatrix()
 {
-	Vector3 target = Vector3::Transform(direction, transform.getWorldMatrix());
 	Vector3 up = { 0, 1, 0 };
-	return Matrix::CreateLookAt(transform.getWorldPosition(), target, up);
+	return Matrix::CreateLookAt(transform.getWorldPosition(), {0.0f, 0.0f, 0.0f}, up);
 }
 
 Matrix Light::getProjectionMatrix() const

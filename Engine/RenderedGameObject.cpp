@@ -121,12 +121,15 @@ void RenderedGameObject::draw()
 	m_game->context->UpdateSubresource(pConstantBuffer.Get(), 0, NULL, &cb, 0, 0);
 	m_game->context->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
 
+	Vector3 lightDirection = -m_game->light->transform.getWorldPosition();
+	lightDirection.Normalize();
+	
 	const LightBuffer lb =
 	{
 		Vector4{0.15f, 0.15f, 0.15f, 1.0f},
 		Vector4{1.0f, 1.0f, 1.0f, 1.0f},
 		m_game->light->transform.getWorldPosition(),
-		m_game->light->direction,
+		lightDirection,
 		100.0f,
 		{1.0f, 1.0f, 1.0f, 1.0f }
 	};

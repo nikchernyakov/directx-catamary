@@ -108,7 +108,7 @@ void KatamariGame::init()
 	depthShader = new Shader(this, L"Shaders/DepthShader.fx", depthShaderInputElements, 1);
 	
 	plane = new BoxObject(this, shader, { 0, 0, 0 }, 
-		{ 1, 1, 1, 1 }, {2, 0.1, 2} );
+		{ 1, 1, 1, 1 }, {6, 0.1, 6} );
 
 	box1 = new BoxObject(this, shader, { -1, 1, 0 },
 		{ 1, 1, 1, 1 }, { 0.1, 0.1, 0.1 });
@@ -128,7 +128,7 @@ void KatamariGame::init()
 	camera = new KatamariCamera(this, {0, 1, -6}, katamariSphere);
 	//camera->rotate(0, -2);
 
-	light = new Light(this, { 0, 2, 0 }, { 0, -1, 0 });
+	light = new Light(this, { 10, 10, 10 }, { -5, -5, -5 });
 }
 
 void KatamariGame::update()
@@ -198,9 +198,13 @@ void KatamariGame::update()
 
 void KatamariGame::drawObjects()
 {
+	plane->setShadowMap(renderTexture->getShaderResourceView());
 	plane->draw();
+	box1->setShadowMap(renderTexture->getShaderResourceView());
 	box1->draw();
+	box2->setShadowMap(renderTexture->getShaderResourceView());
 	box2->draw();
+	box3->setShadowMap(renderTexture->getShaderResourceView());
 	box3->draw();
 	katamariSphere->setShadowMap(renderTexture->getShaderResourceView());
 	katamariSphere->draw();
@@ -208,6 +212,10 @@ void KatamariGame::drawObjects()
 
 void KatamariGame::renderShadowMapObjects()
 {
+	plane->renderShadowMapObject(depthShader);
+	box1->renderShadowMapObject(depthShader);
+	box2->renderShadowMapObject(depthShader);
+	box3->renderShadowMapObject(depthShader);
 	katamariSphere->renderShadowMapObject(depthShader);
 }
 

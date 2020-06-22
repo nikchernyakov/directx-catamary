@@ -36,7 +36,7 @@ void ModelObject::renderShadowMapObject(Shader* depthShader)
 {
 	for (MeshObject* meshObject : meshes)
 	{
-		meshObject->draw();
+		meshObject->renderShadowMapObject(depthShader);
 	}
 }
 
