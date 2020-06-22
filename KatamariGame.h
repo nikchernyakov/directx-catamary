@@ -19,6 +19,7 @@ public:
 protected:
 	void update() override;
 	void drawObjects();
+	void renderShadowMapObjects() override;
 	void collisionCheck(GameObject* gameObject);
 
 private:
@@ -31,6 +32,7 @@ private:
 
 	Shader* shader;
 	TexturedShader* texturedShader;
+	Shader* depthShader;
 	Texture* texture;
 };
 

@@ -125,6 +125,7 @@ void RenderedGameObject::draw()
 	{
 		Vector4{0.15f, 0.15f, 0.15f, 1.0f},
 		Vector4{1.0f, 1.0f, 1.0f, 1.0f},
+		m_game->light->direction,
 		m_game->light->transform.getWorldPosition(),
 		100.0f,
 		{1.0f, 1.0f, 1.0f, 1.0f }
@@ -136,10 +137,38 @@ void RenderedGameObject::draw()
 	const CameraBuffer cameraBuffer =
 	{
 		m_game->camera->transform.getWorldPosition(),
-		0.0f
 	};
 	m_game->context->UpdateSubresource(pCameraBuffer.Get(), 0, NULL, &cameraBuffer, 0, 0);
 	m_game->context->VSSetConstantBuffers(2u, 1u, pCameraBuffer.GetAddressOf());
+
+	m_game->context->DrawIndexed(indicesCount, 0, 0);
+}
+
+void RenderedGameObject::renderShadowMapObject(Shader* depthShader)
+{
+	depthShader->setShader();
+	
+	m_game->context->IASetVertexBuffers(
+		0u,
+		1u,
+		pVertexBuffer.GetAddressOf(),
+		&stride,
+		&offset
+		);
+	m_game->context->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0u);
+	m_game->context->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	// Update Constant Buffer
+	const ConstantBuffer cb =
+	{
+		transform->getWorldMatrix(),
+		m_game->camera->getViewMatrix(),
+		m_game->camera->getProjectionMatrix(),
+		m_game->light->getViewMatrix(),
+		m_game->light->getProjectionMatrix()
+	};
+	m_game->context->UpdateSubresource(pConstantBuffer.Get(), 0, NULL, &cb, 0, 0);
+	m_game->context->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
 
 	m_game->context->DrawIndexed(indicesCount, 0, 0);
 }

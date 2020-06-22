@@ -166,7 +166,10 @@
     <ClCompile Include="SceneGameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Shaders\DepthShader.fx" />
+    <FxCompile Include="Shaders\DepthShader.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PSMain</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="Shaders\Shader.fx">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PSMain</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>

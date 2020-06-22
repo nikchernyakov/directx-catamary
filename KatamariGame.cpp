@@ -16,6 +16,8 @@ KatamariGame::~KatamariGame()
 
 void KatamariGame::init()
 {
+	Game::init();
+	
 	texture = new Texture(this, L"Meshes/eyeball/eyes_blue.jpg");
 
 	D3D11_INPUT_ELEMENT_DESC texturedShaderInputElements[] = {
@@ -90,6 +92,20 @@ void KatamariGame::init()
 	};
 
 	shader = new Shader(this, L"Shaders/Shader.fx", shaderInputElements, 3);
+
+	D3D11_INPUT_ELEMENT_DESC depthShaderInputElements[] = {
+		D3D11_INPUT_ELEMENT_DESC {
+			"POSITION",
+			0,
+			DXGI_FORMAT_R32G32B32_FLOAT,
+			0,
+			0,
+			D3D11_INPUT_PER_VERTEX_DATA,
+			0
+		}
+	};
+
+	depthShader = new Shader(this, L"Shaders/DepthShader.fx", depthShaderInputElements, 1);
 	
 	plane = new BoxObject(this, shader, { 0, 0, 0 }, 
 		{ 1, 1, 1, 1 }, {2, 0.1, 2} );
@@ -107,7 +123,7 @@ void KatamariGame::init()
 
 	katamariPlayer = new SceneGameObject(this);
 	katamariSphere->transform->setParent(katamariPlayer->transform);
-	katamariPlayer->transform->setWorldPosition({ 0, 0.8, 0 });
+	katamariPlayer->transform->setWorldPosition({ 0, 1.0f, 0 });
 
 	camera = new KatamariCamera(this, {0, 1, -6}, katamariSphere);
 	//camera->rotate(0, -2);
@@ -191,6 +207,11 @@ void KatamariGame::drawObjects()
 	box3->draw();
 	katamariSphere->setShadowMap(renderTexture->getShaderResourceView());
 	katamariSphere->draw();
+}
+
+void KatamariGame::renderShadowMapObjects()
+{
+	katamariSphere->renderShadowMapObject(depthShader);
 }
 
 void KatamariGame::collisionCheck(GameObject* gameObject)

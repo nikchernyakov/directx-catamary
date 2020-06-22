@@ -1,6 +1,5 @@
 #pragma once
 
-#include "SimpleMath.h"
 #include "Transform.h"
 
 class Game;
@@ -20,9 +19,9 @@ public:
 	virtual void update();
 	
 	Transform transform;
+	Vector3 direction;
 	
 protected:
-	Vector3 direction;
 
 	float rotationSpeed = 0.1;
 	float moveSpeed = 5;

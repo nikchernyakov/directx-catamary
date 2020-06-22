@@ -14,6 +14,7 @@ public:
 	void update() override;
 	void draw() override;
 
+	void renderShadowMapObject(Shader* depthShader);
 	void setShadowMap(ID3D11ShaderResourceView* depthMapTexture);
 
 protected:

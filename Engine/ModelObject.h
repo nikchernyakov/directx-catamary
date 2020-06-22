@@ -13,6 +13,7 @@ public:
 	void draw() override;
 	void addMesh(MeshObject* mesh);
 
+	void renderShadowMapObject(Shader* depthShader);
 	void setShadowMap(ID3D11ShaderResourceView* depthMapTexture);
 	
 protected:

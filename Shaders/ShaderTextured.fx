@@ -19,9 +19,10 @@ cbuffer LightBuffer : register(b1)
 	float4 ambientColor;
 	float4 diffuseColor;
 	float3 lightPosition;
-	//float3 lightDirection;
+	float3 lightDirection;
 	float specularPower;
 	float4 specularColor;
+	float lightPadding;
 };
 
 cbuffer CameraBuffer : register(b2)
@@ -44,9 +45,9 @@ struct PS_DATA
 	float4 color : COLOR;
 	float3 normal : NORMAL;
 	float2 tex : TEXCOORD;
-	float3 viewDirection : TEXCOORD;
-	float4 lightViewPosition : TEXCOORD;
-	float3 lightPos : TEXCOORD;
+	float3 viewDirection : TEXCOORD1;
+	float4 lightViewPosition : TEXCOORD2;
+	float3 lightPos : TEXCOORD3;
 };
 
 PS_DATA VSMain(VS_DATA input)
@@ -58,9 +59,9 @@ PS_DATA VSMain(VS_DATA input)
 	output.pos = mul(output.pos, Projection);
 	
 	// Calculate the position of the vertice as viewed by the light source.
-	output.lightViewPosition = mul(input.position, worldMatrix);
-	output.lightViewPosition = mul(output.lightViewPosition, lightViewMatrix);
-	output.lightViewPosition = mul(output.lightViewPosition, lightProjectionMatrix);
+	output.lightViewPosition = mul(input.pos, World);
+	output.lightViewPosition = mul(output.lightViewPosition, lightView);
+	output.lightViewPosition = mul(output.lightViewPosition, lightProjection);
 
 	output.color = input.color;
 	output.tex = input.tex;
@@ -104,13 +105,13 @@ float4 PSMain(PS_DATA input) : SV_Target
 		&& (saturate(projectTexCoord.y) == projectTexCoord.y))
 	{
 		// Invert the light direction for calculations.
-		//float3 lightDir = -lightDirection;
+		float3 lightDir = -lightDirection;
 
 		// Sample the shadow map depth value from the depth texture using the sampler at the projected texture coordinate location.
 		float depthValue = depthMapTexture.Sample(SampleTypeClamp, projectTexCoord).r;
 
 		// Calculate the depth of the light.
-		lightDepthValue = input.lightViewPosition.z / input.lightViewPosition.w;
+		float lightDepthValue = input.lightViewPosition.z / input.lightViewPosition.w;
 
 		// Subtract the bias from the lightDepthValue.
 		lightDepthValue = lightDepthValue - bias;

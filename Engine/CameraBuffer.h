@@ -7,5 +7,5 @@ using namespace DirectX::SimpleMath;
 struct CameraBuffer
 {
 	Vector3 cameraPosition;
-	float padding;
+	float padding = 0.0f;
 };

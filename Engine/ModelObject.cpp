@@ -32,6 +32,14 @@ void ModelObject::addMesh(MeshObject* mesh)
 	mesh->transform->setParent(transform);
 }
 
+void ModelObject::renderShadowMapObject(Shader* depthShader)
+{
+	for (MeshObject* meshObject : meshes)
+	{
+		meshObject->draw();
+	}
+}
+
 void ModelObject::setShadowMap(ID3D11ShaderResourceView* depthMapTexture)
 {
 	m_depthMapTexture = depthMapTexture;
