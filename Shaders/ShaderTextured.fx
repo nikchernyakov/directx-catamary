@@ -44,7 +44,7 @@ struct PS_DATA
 	float4 pos : SV_POSITION;
 	float4 color : COLOR;
 	float3 normal : NORMAL;
-	float2 tex : TEXCOORD;
+	float2 tex : TEXCOORD0;
 	float3 viewDirection : TEXCOORD1;
 	float4 lightViewPosition : TEXCOORD2;
 	float3 lightPos : TEXCOORD3;
@@ -59,7 +59,7 @@ PS_DATA VSMain(VS_DATA input)
 	output.pos = mul(output.pos, Projection);
 	
 	// Calculate the position of the vertice as viewed by the light source.
-	output.lightViewPosition = mul(input.pos, World);
+	output.lightViewPosition = mul(float4(input.pos, 1.0f), World);
 	output.lightViewPosition = mul(output.lightViewPosition, lightView);
 	output.lightViewPosition = mul(output.lightViewPosition, lightProjection);
 
@@ -91,8 +91,8 @@ float4 PSMain(PS_DATA input) : SV_Target
 
 	// Calculate the projected texture coordinates.
 	float2 projectTexCoord;
-	projectTexCoord.x = input.lightViewPosition.x / input.lightViewPosition.w / 2.0f + 0.5f;
-	projectTexCoord.y = -input.lightViewPosition.y / input.lightViewPosition.w / 2.0f + 0.5f;
+	projectTexCoord.x = input.lightViewPosition.x / input.lightViewPosition.w;
+	projectTexCoord.y = -input.lightViewPosition.y / input.lightViewPosition.w;
 
 	// Set the default output color to the ambient light value for all pixels.
 	float4 finalColor = ambientColor;

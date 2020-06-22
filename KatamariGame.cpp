@@ -129,7 +129,6 @@ void KatamariGame::init()
 	//camera->rotate(0, -2);
 
 	light = new Light(this, { 0, 2, 0 }, { 0, -1, 0 });
-	
 }
 
 void KatamariGame::update()
@@ -195,8 +194,6 @@ void KatamariGame::update()
 	collisionCheck(box1);
 	collisionCheck(box2);
 	collisionCheck(box3);
-
-	
 }
 
 void KatamariGame::drawObjects()

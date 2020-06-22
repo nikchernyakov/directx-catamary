@@ -64,10 +64,10 @@ void Game::renderShadowMap()
 	// Set the render target to be the render to texture.
 	renderTexture->setRenderTarget(context);
 
-	renderShadowMapObjects();
-
 	// Clear the render to texture.
 	renderTexture->clearRenderTarget(context, { 0.0f, 0.0f, 0.0f, 1.0f });
+	
+	renderShadowMapObjects();
 }
 
 void Game::renderShadowMapObjects()
