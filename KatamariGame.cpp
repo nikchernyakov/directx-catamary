@@ -95,13 +95,13 @@ void KatamariGame::init()
 		{ 1, 1, 1, 1 }, {2, 0.1, 2} );
 
 	box1 = new BoxObject(this, shader, { -1, 1, 0 },
-		{ 1, 0, 1, 1 }, { 0.1, 0.1, 0.1 });
+		{ 1, 1, 1, 1 }, { 0.1, 0.1, 0.1 });
 
 	box2 = new BoxObject(this, shader, { -0.5, 1, -1 },
-		{ 1, 0, 1, 1 }, { 0.1, 0.1, 0.1 });
+		{ 1, 1, 1, 1 }, { 0.1, 0.1, 0.1 });
 	
 	box3 = new BoxObject(this, shader, { 1, 1, 0 },
-		{ 1, 0, 1, 1 }, { 0.1, 0.1, 0.1 });
+		{ 1, 1, 1, 1 }, { 0.1, 0.1, 0.1 });
 	
 	katamariSphere = new KatamariSphere(this, "Meshes/eyeball/eyeball-mod.obj", texturedShader);
 

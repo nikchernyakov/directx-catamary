@@ -123,7 +123,7 @@ void RenderedGameObject::draw()
 		Vector4{0.15f, 0.15f, 0.15f, 1.0f},
 		Vector4{1.0f, 1.0f, 1.0f, 1.0f},
 		Vector3{0.0f, -1.0f, 0.0f},
-		32.0f,
+		100.0f,
 		{1.0f, 1.0f, 1.0f, 1.0f }
 	};
 	m_game->context->UpdateSubresource(pLightBuffer.Get(), 0, NULL, &lb, 0, 0);

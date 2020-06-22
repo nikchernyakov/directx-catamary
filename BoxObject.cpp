@@ -37,30 +37,30 @@ BoxObject::BoxObject(Game* game, Shader* shader, Vector3 position, Vector4 color
 
 		// Left vertices
 		{
-			{+boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitX
+			{+boxSize.x, -boxSize.y, -boxSize.z}, color, Vector3::UnitX
 		},
 		{
-			{+boxSize.x, +boxSize.y, -boxSize.z}, color, -Vector3::UnitX
+			{+boxSize.x, +boxSize.y, -boxSize.z}, color, Vector3::UnitX
 		},
 		{
-			{+boxSize.x, +boxSize.y, +boxSize.z}, color, -Vector3::UnitX
+			{+boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitX
 		},
 		{
-			{+boxSize.x, -boxSize.y, +boxSize.z}, color, -Vector3::UnitX
+			{+boxSize.x, -boxSize.y, +boxSize.z}, color, Vector3::UnitX
 		},
 
 		// Right vertices
 		{
-			{-boxSize.x, -boxSize.y, +boxSize.z}, color, Vector3::UnitX
+			{-boxSize.x, -boxSize.y, +boxSize.z}, color, -Vector3::UnitX
 		},
 		{
-			{-boxSize.x, +boxSize.y, +boxSize.z}, color, Vector3::UnitX
+			{-boxSize.x, +boxSize.y, +boxSize.z}, color, -Vector3::UnitX
 		},
 		{
-			{-boxSize.x, +boxSize.y, -boxSize.z}, color, Vector3::UnitX
+			{-boxSize.x, +boxSize.y, -boxSize.z}, color, -Vector3::UnitX
 		},
 		{
-			{-boxSize.x, -boxSize.y, -boxSize.z}, color, Vector3::UnitX
+			{-boxSize.x, -boxSize.y, -boxSize.z}, color, -Vector3::UnitX
 		},
 
 		// Top vertices

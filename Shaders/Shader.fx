@@ -46,7 +46,7 @@ PS_DATA VSMain(VS_DATA input)
 	output.color = input.color;
 
 	// Calculate the normal vector against the world matrix only.
-	output.normal = mul(input.normal, (float3x3)World);
+	output.normal = mul(float4(input.normal, 0.0f), World).xyz;
 	output.normal = normalize(output.normal);
 
 	// Calculate the position of the vertex in the world.
