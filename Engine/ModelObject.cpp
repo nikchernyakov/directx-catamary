@@ -21,6 +21,7 @@ void ModelObject::draw()
 {
 	for (MeshObject* meshObject : meshes)
 	{
+		meshObject->setShadowMap(m_depthMapTexture);
 		meshObject->draw();
 	}
 }
@@ -29,4 +30,9 @@ void ModelObject::addMesh(MeshObject* mesh)
 {
 	meshes.push_back(mesh);
 	mesh->transform->setParent(transform);
+}
+
+void ModelObject::setShadowMap(ID3D11ShaderResourceView* depthMapTexture)
+{
+	m_depthMapTexture = depthMapTexture;
 }

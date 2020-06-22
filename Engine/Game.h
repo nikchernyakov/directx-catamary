@@ -5,6 +5,8 @@
 #include "Camera.h"
 #include "Mouse.h"
 #include "MeshRenderer.h"
+#include "Light.h"
+#include "RenderTexture.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -22,8 +24,10 @@ public:
 	int screenWidth = 0;
 	int screenHeight = 0;
 
-	HWND hWnd;
+	const int SHADOW_MAP_SIZE = 1024;
 
+	HWND hWnd;
+	
 	ID3D11Device* device;
 	ID3D11DeviceContext* context;
 	IDXGISwapChain* swapChain;
@@ -32,17 +36,22 @@ public:
 	ID3D11Texture2D* depthStencil = NULL;             // Текстура буфера глубин
 	ID3D11DepthStencilView* depthStencilView = NULL;          // Объект вида, буфер глубин
 
+	RenderTexture* renderTexture;
+
 	InputDevice* inputDevice;
 	Mouse* mouse;
 	
 	void doFrame();
 
 	Camera* camera;
+	Light* light;
 	MeshRenderer* meshRenderer;
 	
 protected:
 	virtual void update();
 	void render();
+	void renderShadowMap();
+	virtual void renderShadowMapObjects();
 	virtual void drawObjects();
 };
 

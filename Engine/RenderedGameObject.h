@@ -14,6 +14,8 @@ public:
 	void update() override;
 	void draw() override;
 
+	void setShadowMap(ID3D11ShaderResourceView* depthMapTexture);
+
 protected:
 
 	std::vector<Vertex> m_vertices;
@@ -23,6 +25,7 @@ protected:
 	UINT indicesCount;
 
 	Shader* m_shader;
+	ID3D11ShaderResourceView* m_depthMapTexture;
 	
 	ComPtr<ID3D11Buffer> pConstantBuffer;
 	ComPtr<ID3D11Buffer> pLightBuffer;

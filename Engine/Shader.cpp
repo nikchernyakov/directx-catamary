@@ -79,6 +79,21 @@ Shader::Shader(Game* game, const wchar_t* shaderPath, D3D11_INPUT_ELEMENT_DESC* 
 		vertexBC->GetBufferPointer(),
 		vertexBC->GetBufferSize(),
 		&pInputLayout);
+
+	// Создание сэмпла (описания) текстуры
+	D3D11_SAMPLER_DESC sampDesc;
+	ZeroMemory(&sampDesc, sizeof(sampDesc));
+	sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;      // Тип фильтрации
+	sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;         // Задаем координаты
+	sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+	sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+	sampDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+	sampDesc.MinLOD = 0;
+	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+	// Создаем интерфейс сэмпла текстурирования
+	hr = m_game->device->CreateSamplerState(&sampDesc, &pShadowMapSampler);
+	
 }
 
 void Shader::setShader()
@@ -86,4 +101,10 @@ void Shader::setShader()
 	m_game->context->PSSetShader(pPixelShader.Get(), nullptr, 0u);
 	m_game->context->VSSetShader(pVertexShader.Get(), nullptr, 0u);
 	m_game->context->IASetInputLayout(pInputLayout.Get());
+}
+
+void Shader::setShadowMap(ID3D11ShaderResourceView* depthMapTexture)
+{
+	m_game->context->PSSetShaderResources(1, 1, &depthMapTexture);
+	m_game->context->PSSetSamplers(1, 1, &pShadowMapSampler);
 }

@@ -146,12 +146,14 @@
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\Game.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
+    <ClCompile Include="Engine\Light.cpp" />
     <ClCompile Include="Engine\ModelObject.cpp" />
     <ClCompile Include="Engine\RenderedGameObject.cpp" />
     <ClCompile Include="Engine\InputDevice.cpp" />
     <ClCompile Include="Engine\MeshObject.cpp" />
     <ClCompile Include="Engine\MeshRenderer.cpp" />
     <ClCompile Include="Engine\Mouse.cpp" />
+    <ClCompile Include="Engine\RenderTexture.cpp" />
     <ClCompile Include="Engine\Shader.cpp" />
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\TexturedShader.cpp" />
@@ -164,6 +166,7 @@
     <ClCompile Include="SceneGameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Shaders\DepthShader.fx" />
     <FxCompile Include="Shaders\Shader.fx">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PSMain</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
@@ -181,6 +184,7 @@
     <ClInclude Include="Engine\Game.h" />
     <ClInclude Include="Engine\GameMath.h" />
     <ClInclude Include="Engine\GameObject.h" />
+    <ClInclude Include="Engine\Light.h" />
     <ClInclude Include="Engine\LightBuffer.h" />
     <ClInclude Include="Engine\ModelObject.h" />
     <ClInclude Include="Engine\RenderedGameObject.h" />
@@ -188,6 +192,7 @@
     <ClInclude Include="Engine\MeshObject.h" />
     <ClInclude Include="Engine\MeshRenderer.h" />
     <ClInclude Include="Engine\Mouse.h" />
+    <ClInclude Include="Engine\RenderTexture.h" />
     <ClInclude Include="Engine\Shader.h" />
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\TexturedShader.h" />

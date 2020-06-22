@@ -111,6 +111,8 @@ void KatamariGame::init()
 
 	camera = new KatamariCamera(this, {0, 1, -6}, katamariSphere);
 	//camera->rotate(0, -2);
+
+	light = new Light(this, { 0, 2, 0 }, { 0, -1, 0 });
 	
 }
 
@@ -187,8 +189,8 @@ void KatamariGame::drawObjects()
 	box1->draw();
 	box2->draw();
 	box3->draw();
+	katamariSphere->setShadowMap(renderTexture->getShaderResourceView());
 	katamariSphere->draw();
-	
 }
 
 void KatamariGame::collisionCheck(GameObject* gameObject)

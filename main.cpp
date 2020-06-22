@@ -297,18 +297,6 @@ int WINAPI main(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline, in
 	// При помощи заполненной структуры-описания и текстуры создаем объект буфера глубин
 	game->device->CreateDepthStencilView(game->depthStencil, &descDSV, &game->depthStencilView);
 
-
-	D3D11_VIEWPORT viewport = {};
-	viewport.Width = game->screenWidth;
-	viewport.Height = game->screenHeight;
-	viewport.TopLeftX = 0;
-	viewport.TopLeftY = 0;
-	viewport.MinDepth = 0;
-	viewport.MaxDepth = 1.0f;
-
-	game->context->RSSetViewports(1, &viewport);
-	game->context->OMSetRenderTargets(1, &game->rtv, game->depthStencilView);
-
 #pragma endregion DirectX initialization
 
 	MSG msg = {};

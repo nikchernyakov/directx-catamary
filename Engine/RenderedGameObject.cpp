@@ -107,6 +107,7 @@ void RenderedGameObject::draw()
 	m_game->context->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	m_shader->setShader();
+	m_shader->setShadowMap(m_depthMapTexture);
 
 	// Update Constant Buffer
 	const ConstantBuffer cb =
@@ -114,6 +115,8 @@ void RenderedGameObject::draw()
 		transform->getWorldMatrix(),
 		m_game->camera->getViewMatrix(),
 		m_game->camera->getProjectionMatrix(),
+		m_game->light->getViewMatrix(),
+		m_game->light->getProjectionMatrix()
 	};
 	m_game->context->UpdateSubresource(pConstantBuffer.Get(), 0, NULL, &cb, 0, 0);
 	m_game->context->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
@@ -122,7 +125,7 @@ void RenderedGameObject::draw()
 	{
 		Vector4{0.15f, 0.15f, 0.15f, 1.0f},
 		Vector4{1.0f, 1.0f, 1.0f, 1.0f},
-		Vector3{0.0f, -1.0f, 0.0f},
+		m_game->light->transform.getWorldPosition(),
 		100.0f,
 		{1.0f, 1.0f, 1.0f, 1.0f }
 	};
@@ -139,4 +142,9 @@ void RenderedGameObject::draw()
 	m_game->context->VSSetConstantBuffers(2u, 1u, pCameraBuffer.GetAddressOf());
 
 	m_game->context->DrawIndexed(indicesCount, 0, 0);
+}
+
+void RenderedGameObject::setShadowMap(ID3D11ShaderResourceView* depthMapTexture)
+{
+	m_depthMapTexture = depthMapTexture;
 }

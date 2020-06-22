@@ -12,11 +12,14 @@ public:
 	void update() override;
 	void draw() override;
 	void addMesh(MeshObject* mesh);
+
+	void setShadowMap(ID3D11ShaderResourceView* depthMapTexture);
 	
 protected:
 	
 	std::vector<MeshObject*> meshes;
 	Shader* m_shader;
-	
+
+	ID3D11ShaderResourceView* m_depthMapTexture;
 };
 

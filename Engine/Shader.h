@@ -16,7 +16,11 @@ public:
 	ComPtr<ID3D11VertexShader> pVertexShader;
 	ComPtr<ID3D11PixelShader> pPixelShader;
 
+	ID3D11ShaderResourceView* pShadowMapTexture = nullptr;        // Объект текстуры
+	ID3D11SamplerState* pShadowMapSampler = nullptr;    // Параметры наложения текстуры
+
 	virtual void setShader();
+	void setShadowMap(ID3D11ShaderResourceView* depthMapTexture);
 
 protected:
 	Game* m_game;
